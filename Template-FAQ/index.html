@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Frequently Asked Questions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="page-header">
+    <h1><small>UseWaterWisely Frequently Asked Questions</small></h1>
+</div>
+
+<!-- Bootstrap FAQ - START -->
+<div class="container">
+    <br />
+    <br />
+    <br />
+
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        This section contains a wealth of information, related to <strong>UseWaterWisely</strong> website. If you cannot find an answer to your question,
+        make sure to contact us. 
+    </div>
+
+    <br />
+
+    <div class="panel-group" id="accordion">
+
+
+        <div class="faqHeader">Suburban Gardeners</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">How can I use this website?</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Users need to enter their suburb name, tank size and roof area in order to calculate the water level in their existing tanks also compare the cost of rain water saved with four leading water providers of Melbourne, Australia. If the user is not aware of their roof area or tank size, default value will be assigned to generate results. Also users are given options to manually draw and calculate their roof area by using satellite images.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">How is the water level in the tank calculated?</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    This function allow user to input the user information including:
+                    <ul>
+                        <li>User inputs location</li>
+                        <li>User inputs tank dimensions (Optional)</li>
+                        <li>User inputs dimensions of roof area (Default – 100 meter squares)</li>
+                        <li>The next step is the approval step, which usually takes about 72 hours.</li>
+                    </ul>
+                    The page will show user the runoff water based on the rainfall prediction for each month in a year in a form of water gauge and the level of water inside the tank.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">What are tank suggestions and how are they calculated?</a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+                    The user will be able to see three different tank suggestions and water level for the selected month of a particular year in a form of a water gauge.User will input:
+                    <ul>
+                        <li>The name of the suburb in ‘Type in your suburb name’ field.</li>
+                        <li>Input roof area in the ‘Type in your roof area’ field or select do not know roof area</li>
+                        <li>Select they do not have tank from the option</li>
+                        <li>Enter number in the ‘the number of people in the household’ field</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">What is Cost Analysis? How is it useful?</a>
+                </h4>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse">
+                <div class="panel-body">
+                    The function allows user to compare monthly water usage rates provided by metropolitan water services in Victoria which can be viewed in a form of a bar chart. Based on comparison of the different water providers, the information about how much of cost can be saved by using rainfall water will be provided in a form of bar chart.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">What is overflow and deficit?</a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse">
+                <div class="panel-body">
+                    The overflow of water is the excess amount of water that exists after the tank has been fully occupied and the deficit is the amount of water that is required in the tank. So basically deficit of water is the opposite of overflow of water. User will input:
+                    <ul>
+                        <li>The name of the suburb in ‘Type in your suburb name’ field.</li>
+                        <li>Input roof area in the ‘Type in your roof area’ field or select do not know roof area</li>
+                        <li>Input tank size in ‘Type in your tank size’ field</li>
+                        <li>Enter number in the ‘the number of people in the household’ field</li>
+                    </ul>
+                    The user will see a water gauge and select month from the options to see the volume of the water for that selected month. Also the overflow and deficit of water will be shown.
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+<style>
+    .faqHeader {
+        font-size: 27px;
+        margin: 20px;
+    }
+
+    .panel-heading [data-toggle="collapse"]:after {
+        font-family: 'Glyphicons Halflings';
+        content: "\e072"; /* "play" icon */
+        float: right;
+        color: #F58723;
+        font-size: 18px;
+        line-height: 22px;
+        /* rotate "play" icon from > (right arrow) to down arrow */
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+
+    .panel-heading [data-toggle="collapse"].collapsed:after {
+        /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+        color: #454444;
+    }
+</style>
+
+<!-- Bootstrap FAQ - END -->
+
+</div>
+
+</body>
+</html>

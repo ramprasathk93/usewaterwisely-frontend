@@ -1,0 +1,1016 @@
+<!-- The header of HTML page to use the Java script -->
+<script src="js/jquery.min.js"></script>
+<script src="js/echarts.common.min.js"></script>
+<script src="js/d3.v4.js" language="JavaScript"></script>
+<script src="js/liquidFillGauge.js" language="JavaScript"></script>
+<script src="js/bootstrap3-typeahead.min.js"></script>
+<!-- The link to mention the css style of the website -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<html>
+<head>
+	<!-- Mention the title of the website -->
+<title>UseWaterWisely</title>
+	<!-- Mention the shotcut icon for images -->
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<!-- This part mention the header of main page panel -->
+<div class="container">
+	<div class="panel">
+  	  	  <div class="panel-heading" style="background-color: #1f2d53;color: #fff;font-family: Quicksand,sans-serif;">
+  	  	  	  <div class="panel-title">
+				  <h3>
+					  <!-- Add team logo to the website header -->
+					  <img src="img/logo.png" style='max-height:50px;max-width:50px;'>
+					  <!-- Add the website name to the website header -->
+					  UseWaterWisely
+					  <!-- Use the Javascript of build up the part of page title -->
+					  <a href="javascript;" class="pull-right" data-toggle="modal" data-target="#helpDiv">
+						  <i class="fa fa-question-circle-o"></i>
+					  </a>
+				  </h3>
+  	  	  	  </div>
+  	  	  </div>
+
+  	  	  <div class="panel-body">
+				<div class="form-group">
+					<div class="col-md-4" style="background: #37bec9;padding-bottom: 15px;font-size: 12px;">
+						<h4>Know about the water resources for your residence</h4>
+						<label style="margin-top: 5px;">Type in your suburb name or post code. <a href="#" onclick="getpostCode()" style="text-decoration: underline;"><font color="#1f2d53">Get Post Code</font></a></label>
+						<div class="form-inline">
+							<div class="input-group" style="float:left">
+								<input type="text" id="localization" class="form-control" placeholder="suburb name" onchange="">
+							</div>
+							<div class="input-group" style="float:left; width:100px; margin-left:10px">
+								<input type="text" id="postCode" class="form-control" placeholder="post code" readonly="readonly">
+							</div>
+						</div>
+						<label style="margin-top: 5px;">Type in your tank capacity,the Maximum tank capacity is 260000 litres, the minimum tank capacity is 1000 litres</label><br>
+						<input type="radio" name="radio1" onclick="addTank()" checked/><span>I have tank, please type in your tank size</span><br>
+						<div class="input-group">
+							<input type="text" id="waterLitre" class="form-control">
+							<div class="input-group-addon">Litres</div>
+						</div>
+						<input type="radio" name="radio1" onclick="removeTank()" /><span>no tank, tank size is zero</span>
+						<button type="button" class="btn btn-default btn-primary" onClick="notank(this);" style="margin-top:10px; display:none">No tank</button><br>
+						<label style="margin-top: 5px;">Type in your roof area (minimum roof area is 100, maximum roof area is 1000)</label><br>
+						<input type="radio" name="radio2" onclick="addRoof()" checked/><span>I know my roof area, please type in your roof area</span><br>
+						<div class="input-group">
+							<input type="text" id="area" class="form-control">
+							<div class="input-group-addon">m&sup2; </div>
+						</div>
+						<input type="radio" name="radio2" onclick="removeRoof()" /><span>I don't know my roof area , use average roof area</span>
+						<button type="button" class="btn btn-default btn-primary" onClick="noRoof(this);" style="margin-top:10px;display:none">Do not know Roof Area</button><br>
+						<br>
+						<label style="margin-top: 5px;">Number of people in your household</label>
+						<div class="input-group">
+							<input type="text" id="peopelNum" class="form-control">
+						</div>
+						<br>
+						<button type="button" id="submitAPI" class="btn btn-default btn-primary" onClick="submitAPI();" style="float:right">Submit</button>
+					</div>
+			  		<div class="col-md-8" id="mainText" >
+						<h1 style="font-size:300%;">Welcome to UseWaterWisely!</h1>
+
+
+						<p style="font-size:160%;">This website's motive is to guide suburban gardeners on the water resources available for their garden and plan the usage of resources effectively.
+							To start with, provide your suburb, water tank details, your house roof area and the number of people in your household to calculate the volume of water for your tank based on rainfall and the water-usage cost when you buy the run-off water from a Metropolitan Water provider
+						</p>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer" style="background-color: #1f2d53;color: #fff;font-family: Quicksand,sans-serif;"> &copy; Copyright by The Superflys 2017 - Monash University Industry Project - All rights reserved.</div>
+</div>
+</body>
+<script>
+	toMain();
+
+	var nameList = [
+'Melbourne','East Melbourne','West Melbourne','St Kilda Road Central','South Wharf','Southbank','Docklands','University Of Melbourne','Footscray','Seddon West','Seddon','Flemington','Kensington','Hotham Hill','North Melbourne','Melbourne University','Carlton','Carlton South','Carlton North','Princes Hill','Fitzroy','Abbotsford','Clifton Hill','Fitzroy North','St Kilda','St Kilda West','St Kilda South','Balaclava','St Kilda East','Brighton Road','Elwood','South Melbourne','Albert Park','Middle Park','Garden City','Port Melbourne','Brooklyn','Maidstone','Kingsville','Tottenham','Kingsville West','West Footscray','Yarraville','Yarraville West','Braybrook','Robinson','Braybrook North','Albion','Sunshine North','Glengala','Sunshine West','Sunshine','Albanvale','Kings Park','Kealba','St Albans','Ardeer','Deer Park East','Burnside','Deer Park ','Burnside Heights','Deer Park North','Cairnlea','Ravenhall','Caroline Springs','Ascot Vale','Maribyrnong','Highpoint City','Travancore','Keilor East','Avondale Heights','Keilor','Keilor North','Calder Park','Sydenham','Delahey','Taylors Hill','Hillside','Keilor Downs','Taylors Lakes','Keilor Lodge','Watergardens','Greenvale','Oaklands Junction','Yuroke','Plumpton','Rockbank','Kurunjang','Melton West','Melton','Toolern Vale','Brookfield','Eynesbury','Exford','Melton South','Diggers Rest','Bulla','Sunbury','Wildwood','Newport','Spotwood','South Kingsville','Williamstown','Williamstown North','Altona','Seaholme','Mambourin','Wyndham Vale','Mount Cottrell','Altona East','Altona North','Altona Gate','Laverton North','Williams Landing','Altona Meadows','Seabrook','Laverton','Hoppers Crossing','Truganina','Tarneit','Cocoroc','Quandong','Derrimut','Werribee','Point Cook','Werribee South','Little River','Moonee Ponds','Aberfeldie','Essendon West','Essendon','Essendon Fields','Strathmore','Essendon North','Strathmore Heights','Airport West','Niddrie','Keilor Park','Gladstone Park','Tullamarine','Gowanbrae','Pascoe Vale','Pascoe Vale South','Glenroy','Oak Park','Hadfield','Broadmeadows','Jacana','Dallas','Coolaroo','Meadow Heights','Attwood','Westmeadows','Brunswick South','Moonee Vale','Brunswick West','Moreland West','Brunswick','Brunswick North','Brunswick Lower','Brunswick East','Sumner','Batman','Merlynston','Coburg','Moreland','Coburg North','Fawkner','Campbellfield','Somerton','Craigieburn','Mickleham','Donnybrook','Roxburgh Park','Kalkallo','Northcote','Northcote South','Thornbury','Gilberton','Preston South','Northland Centre','Preston West','Preston','Regent West','Preston Lower','Reservoir','Thomastown','Lalor','Epping','Alphington','Fairfield','Ivanhoe','Ivanhoe North','Ivanhoe East','Bellfield','Heidelberg Rgh','Heidelberg Heights','Heidelberg West','Mill Park','Bundoora','La Trobe University','Kingsbury','Banyule','Rosanna','Eaglemont','Viewbank','Heidelberg','Macleod','Yallambie','Macleod West','Macleod','Briar Hill','St Helena','Greensborough','Diamond Creek','Plenty','Yarrambat','Lower Plenty','Montmorency','Eltham','Resarch','Eltham North','Wattle Glen','Arthurs Creek','Nutfield','Cottles Bridge','Strathewen','Hurstbrdge','Wollert','Woodstock','South Morang','Beveridge','Yan Yean','Eden Park','Kinglake West','Humevale','Pheasant Creek','Kinglake Central','Whittlesea','Bend Of Islands','Watsons Creek','Kangaroo Ground','Donvale','North Warrandyte','Warrandyte','Park Orchards','Wonga Park','Chirnside Park','Brentford Square','Nunawading','Forest Hill','Mitcham','Rangeview','Mitcham North','Vermont','Vermont South','Heathwood','Warrandyte South','Ringwood','Warranwood','Ringwood North','Bedford Road','Ringwood East','Heathmont','Croydon','Croydon North','Croydon Hills','Croydon South','Kilsyth','Kilsyth South','Mooroolbark','Beenak','Seville East','Don Valley','Wandin East','Hoddles Creek','Wandin North','Launching Place','Woori Yallock','Seville ','Yellingbo','Lilydale','Brandon Park','Wheelers Hill','Glen Waverley','Burwood East','Burwood Heights','Knox City Centre','Wantirna','Studfield','Wantirna South','Bayswater','Bayswater North','The Basin','Boronia','Ferntree Gully','Mountain Gate','Lysterfield','Upper Ferntree Gully','Lysterfield South','Upwey','Menzies Creek','Selby','Belgrave','Belgrave South','Belgrave Heights','Tecoma','Rowville','Scoresby','Knoxfield','Panton Hill','Smiths Gully','St Andrews','Kinglake','Montrose','Kalorama','Mount Dandenong','Coldstream','Yering','Gruyere','Christmas Hills','Tarrawarra','Dixons Creek','Yarra Glen','Steels Creek','Badger Creek','Healesville Main Street','Castella','Healesville Post Shop','Chum Creek','Mount Toolebewong','Healesville','Toolangi','Tremont','Ferny Creek','Sassafras','Sassafras Gully','Olinda','Sherbrooke','Kallista','The Patch','Monbulk','Silvan','Mount Evelyn','Gilderoy','Three Bridges','Gladysdale','Yarra Junction','Powelltown','Narre Warren East','Narre Warren North','Cotham','Kew','Kew East','Balwyn','Deepdene','Balwyn East','Balwyn North','Greythorn','Bulleen','Templestowe','Templestowe Lower','Doncaster','Doncaster East','The Pines','Doncaster Heights','Burnley','Richmond East','Burnley North','Richmond North','Cremorne','Richmond South','Richmond','Auburn South','Hawthorn North','Glenferrie South','Hawthorn West','Hawthorn','Auburn','Hawthorn East','Camberwell','Camberwell West','Camberwell North','Hartwell','Camberwell South','Middle Camberwell','Camberwell East','Canterbury','Box Hill','Houston','Box Hill Central','Wattle Park','Box Hill South','Box Hill North','Mont Albert North','Kerrimuir','Blackburn','Blackburn South','Blackburn North','Laburnum','South Yarra','Hawksburn','Toorak','Armadale','Armadale North','Kooyong','Malvern North','Malvern','Caulfield East','Darling South','Central Park','Malvern East','Darling','Wattletree Road Po','Caulfield Junction','Caulfield North','Prahran','Windsor','Prahran East','Caulfield','Hopetoun Gardens','Caulfield South','Glen Huntly','Carnegie','Murrumbeena','Bentleigh East','Hughesdale','Oakleigh South','Clayton','Notting Hill','Clarinda','Clayton South','Dingley Village','Springvale South','Keysborough','Elsternwick','Ripponlea','Gardenvale','Brighton','Dendy','Brighton North','Were Street Po','Brighton East','North Road','Hampton','Hampton North','Hampton East','Moorabbin','Wishart','Moorabbin East','Highett','Sandringham','Cheltenham','Southland Centre','Chetenham East','Beaumaris','Black Rock North','Black Rock','Cromer','Mentone','Moorabbin Airport','Mentone East','Aspendale','Mordialloc','Aspendale Gardens','Parkdale','Braeside','Waterways','Bonbeach','Chelsea Heights','Chelsea','Edithvale','Carrum','Patterson Lakes','Heatherton','Bentleigh','Ormond','Mckinnon','Patterson','Monash University','Mulgrave','Waverley Gardens','Sandown Village','Springvale','Noble Park','Noble Park North','Bangholme','Dandenong North','Dandenong','Dandenong South','Dandenong East','Dunearn','Doveton','Eumemmerring','Cockatoo','Nangana','Mount Burnett','Avonsleigh','Emerald','Clematis','Macclesfield','Gembrook','Endeavour Hills','Hallam','Fountain Gate','Narre Warren South','Narre Warren','Berwick','Harkaway','Beaconsfield','Guys Hill','Beaconsfield Upper','Dewhurst','Officer','Officer South','Pakenham','Pakenham Upper','Pakenham South','Rythdale','Maryknoll','Nar Nar Goon North','Nar Nar Goon','Tynong','Tynong North','Cora Lynn','Garfield North','Garfield','Vervale','Bunyip','Iona','Bunyip North','Tonimbuk','Lynbrook','Lyndhurst','Hampton Park','Botanic Ridge','Cranbourne West','Cannons Creek','Devon Meadows','Cranbourne','Junction Village','Cranbourne East','Sandhurst','Cranbourne North','Skye','Cranbourne South','Cardinia','Clyde North','Clyde','Blind Bight','Warneet','Tooradin','Bayles','Koo Wee Rup','Catani','Koo Wee Rup North','Dalmore','Yannathan','Heath Hill'];
+	$("#localization").typeahead({
+		source: nameList
+	});
+	
+function getpostCode()
+{	
+	$.ajax({
+        type: "POST",
+        url: "http://api.usewaterwisely.tk/api/searchlocation",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        //jsonpCallback: "jsonpcallback",
+        async: false,
+        success: function(data)
+		{
+			if(data.locations == null || attributeCount(data.locations) == 0)
+					alert("Warning: Please input valid suburb name");
+			else
+			{
+				for (var y in data.locations)
+				{
+					var id = data.locations[y];
+					$("#postCode").val(id);
+					return false;
+				}
+			}
+		},
+        error: function (message) {
+        	alert("error.");
+        }
+    });
+}
+function localizationChange()
+{
+	var loc = $("#localization").val();
+	$.ajax({
+        type: "POST",
+        url: "//TODO",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        //jsonpCallback: "jsonpcallback",
+        async: false,
+        success: function(data)
+		{
+        	nameList = data;
+		},
+        error: function (message) {
+        }
+    });
+}
+function attributeCount(obj) {
+    var count = 0;
+    for(var i in obj) {
+        if(obj.hasOwnProperty(i)) 
+        {
+            count++;
+        }
+    }
+    return count;
+}
+var allText;
+var allTanks;
+var gauge;
+var gauge11;
+var gauge22;
+var gauge33;
+function submitAPI()
+{
+	$("#localization").blur();
+	$("#postCode").blur();
+	$("#waterLitre").blur();
+	$("#area").blur();
+	$("#peopelNum").blur();
+	if ($("#localization").hasClass("invalid"))
+	{
+		alert("Warning: Please input a valid suburb")
+		return false;
+	}
+	if ($("#postCode").hasClass("invalid"))
+	{
+		alert("Warning: Please input a valid postCode")
+		return false;
+	}
+	if ($("#localization").val() != '' && $("#localization").val() != null && $("#localization").val().length < 3)
+	{
+		alert("Warning: Input at least 3 leters for location search");
+		return false;
+	}
+	if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() > 260000)
+	{
+		alert("Warning: The maximum tank capacity is 260000, please check!");
+		return false;
+	}
+    if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() < 1000)
+    {
+        alert("Warning: The minimum tank capacity is 1000, please check!");
+        return false;
+    }
+	if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() > 1000)
+	{
+		alert("Warning: The maximum roof area is 1000 square meter");
+		return false;
+	}
+    if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() < 100 )
+    {
+        alert("Warning: The minimum roof area is 100 square meter,or the rainful can not be collect !");
+        return false;
+    }
+	if (!$("#waterLitre").hasClass("haveTank") && $("#waterLitre").val() == '')
+	{
+		alert("Warning: Type in a valid number. If you do not have a tank, click on 'no tank, tank size is zero'");
+		return false;
+	}
+	if (!$("#area").hasClass("haveRoof") && $("#area").val() == '')
+	{
+		alert("Warning: Type in a valid number. If you do not know your roof area, click on 'I don't know my roof area'");
+		return false;
+	}
+	if ($("#waterLitre").hasClass("invalid") || $("#area").hasClass("invalid"))
+	{
+		alert("Warning: Please input only numbers")
+		return false;	
+	}
+	if ($("#peopelNum").hasClass("invalid"))
+	{
+		alert("Warning : Please tell us how many people in your house. Max number is 15");
+		return false;
+	}
+	var tankvalue =$("#waterLitre").val();
+	
+	$("#mainText").html("");
+	$("#mainText").append('<a href="Template-FAQ/index.html" target="_blank"><button type="button" class="btn btn-default btn-info" id="tomail" style="border-radius: 0px;float:right;margin-top: 25px;">FAQ</button></a>');
+	if(tankvalue != '')
+	{
+		$("#mainText").append('<button type="button" class="btn btn-default" id="toCost" onClick="toCost();" style="border-radius: 0px;float:right;margin-top: 25px;">Cost Analysis</button>');
+		$("#mainText").append('<button type="button" class="btn btn-default btn-primary" id="toMain" onClick="toMain();" style="border-radius: 0px;float:right;margin-top: 25px;">Run-off Estimation</button>');
+		$("#mainText").append('<label style="margin-top: 5px;" class="rainfall">These gauges gives an estimate of your tank level based on the average rainfall in your location, your roof area and your average demands. The water level shows in each gauge is the volume of water that you can collect in your tank</label>');
+		$("#mainText").append('<label style="margin-top: 5px;" class="costchat">This chart gives a comparison of cost when you buy the same amount of run-off water from a water provider. Different metropolitan water providers are shown here. Click on the lables to compare the companies</label>');
+	}
+	var jsondata = null;
+    $.ajax({
+        type: "POST",
+        url: "http://api.usewaterwisely.tk/api/searchlocation",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        //jsonpCallback: "jsonpcallback",
+        async: false,
+        success: function(data)
+		{
+			if(data.locations == null || attributeCount(data.locations) == 0)
+					alert("Warning: Please input valid suburb name");
+			else
+				jsondata = data.locations;
+		},
+        error: function (message) {
+        	alert("error.");
+        }
+    });
+	if (jsondata == null)
+			return false;
+	var nameList = new Array(attributeCount(jsondata));
+	var numList = new Array(attributeCount(jsondata));
+	var cont = 0;
+	for (var x in jsondata)
+	{
+		nameList[cont] = x;
+		cont++;
+	}
+	cont = 0;
+	var countNum = 0;
+	for (var y in jsondata)
+	{
+		var id = jsondata[y];
+		var htmlContent = null;
+		var tanklat = $("#waterLitre").val();
+		if (tanklat != '')
+		{
+			$.ajax({
+				type: "POST",
+				url: "http://api.usewaterwisely.tk/api/getwaterlevels",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify(getJsonDate2(id, y)),
+				dataType: "json",
+				//jsonpCallback: "jsonpcallback",
+				async: false,
+				success: function(data)
+				{
+					var text = data;
+					allText = data;
+					if( text[0] == null)
+						return false;
+					var rainfall = new Array();
+					var runoff = new Array();
+					var cost = new Array();
+					var cost2 = new Array();
+					var cost3 = new Array();
+					var cost4 = new Array();
+					var tanklat = $("#waterLitre").val();
+					if (tanklat == '' || tanklat == null)
+						tanklat = 0;
+					var tanks = [tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat,tanklat];
+					var roofArea = $("#area").val();
+					if (roofArea == '')
+						roofArea = 200;
+	                if (text[0] != null){
+	                	cost[0] = text[0].volume*2.3932/1000;
+	                    cost2[0] = text[0].volume*2.5993/1000;cost3[0] = text[0].volume*2.6097/1000;cost4[0]=text[0].volume*1.7058/1000;}
+	                if (text[1] != null){
+	                	cost[1] = text[1].volume*2.3932/1000;
+	                    cost2[1] = text[1].volume*2.5993/1000;cost3[1] = text[1].volume*2.6097/1000;cost4[1]=text[1].volume*1.7058/1000;}
+	                if (text[2] != null){
+	                	cost[2] = text[2].volume*2.3932/1000;
+	                    cost2[2] = text[2].volume*2.5993/1000;cost3[2] = text[2].volume*2.6097/1000;cost4[2]=text[2].volume*1.7058/1000;}
+	                if (text[3] != null){
+	                	cost[3] = text[3].volume*2.3932/1000;
+	                    cost2[3] = text[3].volume*2.5993/1000;cost3[3] = text[3].volume*2.6097/1000;cost4[3]=text[3].volume*1.7058/1000;}
+	                if (text[4] != null){
+	                	cost[4] = text[4].volume*2.3932/1000;
+	                    cost2[4] = text[4].volume*2.5993/1000;cost3[4] = text[4].volume*2.6097/1000;cost4[4]=text[4].volume*1.7058/1000;}
+	                if (text[5] != null){
+	                	cost[5] = text[5].volume*2.3932/1000;
+	                    cost2[5] = text[5].volume*2.5993/1000;cost3[5] = text[5].volume*2.6097/1000;cost4[5]=text[5].volume*1.7058/1000;}
+	                if (text[6] != null){
+	                	cost[6] = text[6].volume*2.3932/1000;
+	                    cost2[6] = text[6].volume*2.5993/1000;cost3[6] = text[6].volume*2.6097/1000;cost4[6]=text[6].volume*1.7058/1000;}
+	                if (text[7] != null){
+	                	cost[7] = text[7].volume*2.3932/1000;
+	                    cost2[7] = text[7].volume*2.5993/1000;cost3[7] = text[7].volume*2.6097/1000;cost4[7]=text[7].volume*1.7058/1000;}
+	                if (text[8] != null){
+	                	cost[8] = text[8].volume*2.3932/1000;
+	                    cost2[8] = text[8].volume*2.5993/1000;cost3[8] = text[8].volume*2.6097/1000;cost4[8]=text[8].volume*1.7058/1000;}
+	                if (text[9] != null){
+	                	cost[9] = text[9].volume*2.3932/1000;
+	                    cost2[9] = text[9].volume*2.5993/1000;cost3[9] = text[9].volume*2.6097/1000;cost4[9]=text[9].volume*1.7058/1000;}
+	                if (text[10] != null){
+	                	cost[10] = text[10].volume*2.3932/1000;
+	                    cost2[10] = text[10].volume*2.5993/1000;cost3[10] = text[10].volume*2.6097/1000;cost4[10]=text[10].volume*1.7058/1000;}
+	                if (text[11] != null){
+	                	cost[11] = text[11].volume*2.3932/1000;
+	                    cost2[11] = text[11].volume*2.5993/1000;cost3[11] = text[11].volume*2.6097/1000;cost4[11]=text[11].volume*1.7058/1000;}
+					$("#mainText").append('<div id="main_'+countNum+'" class="rainfall" style="height:450px;"></div>');
+					$("#mainText").append('<div id="lain_'+countNum+'" class="costchat" style="height:450px;"></div>');
+					var chart2 = echarts.init(document.getElementById('lain_' + countNum));
+					//op1
+					$("#main_"+countNum).append('<svg id="fillgauge'+countNum+'" width="30%" height="150" style="float: left;"></svg>');
+					$("#main_"+countNum).append('<div id="inTge" style="float:left;border:1px solid blue;width:250px;height:150px"></div>');
+					$("#inTge").append('<div id="volumeTag" style="margin-top: 30px;margin-left: 15px;">Tank overflow:</div><br>');
+                    $("#inTge").append('<div id="overflowss" style="margin-left: 15px; color:red"></div>');
+                    $("#inTge").append('<div id="fill" style="margin-left: 15px; color:red"></div>');
+					$("#inTge").append('<div id="deficitTag" style="margin-left: 15px;">Deficit:</div>');
+                    $("#main_"+countNum).append('<br><br><br><br><br><br><br><div id = "word" style="margin-top: 20px; margin-left: 40px; font-size : 15px">Click on these buttons to switch over months</div>');
+					$("#main_"+countNum).append('<br><div id="buttonList" style="margin-top: 0px;margin-left: 40px;"></div>');
+					for (var is = 0; is < 12; is++)
+					{
+					    var mon = "";
+					    if(is == 0)
+						{
+						    mon = "Jan"
+						}
+                        if(is == 1)
+                        {
+                            mon = "Feb"
+                        }
+                        if(is == 2)
+                        {
+                            mon = "Mar"
+                        }
+                        if(is == 3)
+                        {
+                            mon = "Apr"
+                        }
+                        if(is == 4)
+                        {
+                            mon = "May"
+                        }
+                        if(is == 5)
+                        {
+                            mon = "Jun"
+                        }
+                        if(is == 6)
+                        {
+                            mon = "Jul"
+                        }
+                        if(is == 7)
+                        {
+                            mon = "Aug"
+                        }
+                        if(is == 8)
+                        {
+                            mon = "Sep"
+                        }
+                        if(is == 9)
+                        {
+                            mon = "Oct"
+                        }
+                        if(is == 10)
+                        {
+                            mon = "Nov"
+                        }
+                        if(is == 11)
+                        {
+                            mon = "Dec"
+                        }
+						$("#buttonList").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeMonth('+is+')">'+ mon +'</button>');
+					}
+					var config = liquidFillGaugeDefaultSettings();
+				    config.waveHeight = 0.3;
+				    config.circleThickness = 0.1;
+				    config.circleFillGap = 0.2;
+				    config.textVertPosition = 0.8;
+				    config.waveAnimateTime = 2000;
+				    config.waveCount = 1;
+				    config.displayPercent = false;
+				    config.maxValue = tanklat;
+					gauge = loadLiquidFillGauge("fillgauge" + countNum, 28, config);
+					gauge.update(text[0].volume);
+
+					countNum++;
+					//op2
+					var options2 = {
+						color: ['#1f2d53','#3398DB','#43AC6A','#EA2F10'],
+						title: {
+							text: 'Cost chart\n -' +  nameList[cont],
+							textStyle: {fontSize:12}
+						},
+						tooltip: {},
+						legend: {
+							right: 20,
+
+							data:['City West Water', 'Yarra Valley Water', 'South East Water', 'Western Water']
+						},
+	                    grid: { // control the size of charts
+	                        x: 100,
+	                        y:100,
+	                        x2: 100,
+	                        y2: 100,
+	                    },
+						xAxis: {
+							name:'Month',
+							data: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
+						},
+						yAxis: {name:'Dolars'},
+						series: [{
+							name: 'City West Water',
+							type: 'bar',
+							data: cost
+						},
+							{
+								name: 'Yarra Valley Water',
+								type: 'bar',
+								data: cost2
+							},
+							{
+								name: 'South East Water',
+								type: 'bar',
+								data: cost3
+							},
+							{
+								name: 'Western Water',
+								type: 'bar',
+								data: cost4
+							}
+						]
+					};
+					chart2.setOption(options2);
+					countNum++;
+					//op3
+					$.ajax({
+						type: "POST",
+						url: "http://api.usewaterwisely.tk/api/gettanksize",
+						contentType: "application/json; charset=utf-8",
+						data: JSON.stringify(gettanksize(id, y)),
+						dataType: "json",
+						//jsonpCallback: "jsonpcallback",
+						async: false,
+						success: function(data)
+						{
+							var jsonStr = data;
+							allTanks = data;
+
+							var peopelNum = $("#peopelNum").val();
+							if (peopelNum == '')
+								peopelNum = 1;
+
+							$("#main_0").append('<div id="bolls" style="margin-top:30px"></div>');
+							$("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
+							$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+ " Litres"+'</span>');
+							$("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
+							$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+ " Litres"+'</span>');
+							$("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
+							$("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+ " Litres"+'</span>');
+                            $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these buttons to switch over months</div>');
+                            $("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
+                            for (var is = 0; is < 12; is++)
+                            {
+                                var mon = "";
+                                if(is == 0)
+                                {
+                                    mon = "Jan"
+                                }
+                                if(is == 1)
+                                {
+                                    mon = "Feb"
+                                }
+                                if(is == 2)
+                                {
+                                    mon = "Mar"
+                                }
+                                if(is == 3)
+                                {
+                                    mon = "Apr"
+                                }
+                                if(is == 4)
+                                {
+                                    mon = "May"
+                                }
+                                if(is == 5)
+                                {
+                                    mon = "Jun"
+                                }
+                                if(is == 6)
+                                {
+                                    mon = "Jul"
+                                }
+                                if(is == 7)
+                                {
+                                    mon = "Aug"
+                                }
+                                if(is == 8)
+                                {
+                                    mon = "Sep"
+                                }
+                                if(is == 9)
+                                {
+                                    mon = "Oct"
+                                }
+                                if(is == 10)
+                                {
+                                    mon = "Nov"
+                                }
+                                if(is == 11)
+                                {
+                                    mon = "Dec"
+                                }
+                                $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                            }
+
+							var configs = liquidFillGaugeDefaultSettings();
+						    configs.waveHeight = 0.3;
+						    configs.circleThickness = 0.1;
+						    configs.circleFillGap = 0.2;
+						    configs.textVertPosition = 0.8;
+						    configs.waveAnimateTime = 2000;
+						    configs.waveCount = 1;
+						    configs.displayPercent = false;
+						    configs.maxValue = jsonStr.tank_size;
+							gauge11 = loadLiquidFillGauge("fillgaugeb1", 28, configs);
+							gauge11.update(text[0].volume);
+
+							var configs1 = liquidFillGaugeDefaultSettings();
+							configs1.waveHeight = 0.3;
+							configs1.circleThickness = 0.1;
+							configs1.circleFillGap = 0.2;
+							configs1.textVertPosition = 0.8;
+							configs1.waveAnimateTime = 2000;
+							configs1.waveCount = 1;
+							configs1.displayPercent = false;
+							configs1.maxValue = jsonStr.tank_size + peopelNum*140;
+							gauge22 = loadLiquidFillGauge("fillgaugeb2", 28, configs1);
+							gauge22.update(text[0].volume);
+
+							var configs3 = liquidFillGaugeDefaultSettings();
+							configs3.waveHeight = 0.3;
+							configs3.circleThickness = 0.1;
+							configs3.circleFillGap = 0.2;
+							configs3.textVertPosition = 0.8;
+							configs3.waveAnimateTime = 2000;
+							configs3.waveCount = 1;
+							configs3.displayPercent = false;
+							configs3.maxValue = jsonStr.tank_size + allText[2].volume;
+							gauge33 = loadLiquidFillGauge("fillgaugeb3", 28, configs3);
+							gauge33.update(text[0].volume);
+							changeMonth(0)
+						},
+						error: function (message) {
+						}
+				});
+				},
+				error: function (message) {
+					htmlContent = message;
+				}
+			});
+		}
+		else
+		{
+			$.ajax({
+				type: "POST",
+				url: "http://api.usewaterwisely.tk/api/gettanksize",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify(gettanksize(id, y)),
+				dataType: "json",
+				//jsonpCallback: "jsonpcallback",
+				async: false,
+				success: function(data)
+				{
+					var peopelNum = $("#peopelNum").val();
+					if (peopelNum == '')
+						peopelNum = 1;
+					$("#mainText").append('<div id="main_01" style="height:450px;"></div>');
+					var jsonStr = data;
+					allTanks = data;
+                    $("#main_01").append('<br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">These bubbles show the tank suggestions that based on your roof area and house holder numbers. The water level shows the quantity of water you can collect in your tank for each month</div>');
+					$("#main_01").append('<div id="bolls" style="margin-top:50px"></div>');
+
+					$("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
+					$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+'</span>');
+					$("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
+					$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+'</span>');
+					$("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
+					$("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+'</span>');
+                    $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these button to switch month</div>');
+					$("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
+                    for (var is = 0; is < 12; is++)
+                    {
+                        var mon = "";
+                        if(is == 0)
+                        {
+                            mon = "Jan"
+                        }
+                        if(is == 1)
+                        {
+                            mon = "Feb"
+                        }
+                        if(is == 2)
+                        {
+                            mon = "Mar"
+                        }
+                        if(is == 3)
+                        {
+                            mon = "Apr"
+                        }
+                        if(is == 4)
+                        {
+                            mon = "May"
+                        }
+                        if(is == 5)
+                        {
+                            mon = "Jun"
+                        }
+                        if(is == 6)
+                        {
+                            mon = "Jul"
+                        }
+                        if(is == 7)
+                        {
+                            mon = "Aug"
+                        }
+                        if(is == 8)
+                        {
+                            mon = "Sep"
+                        }
+                        if(is == 9)
+                        {
+                            mon = "Oct"
+                        }
+                        if(is == 10)
+                        {
+                            mon = "Nov"
+                        }
+                        if(is == 11)
+                        {
+                            mon = "Dec"
+                        }
+                        $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                    }
+					var configs = liquidFillGaugeDefaultSettings();
+				    configs.waveHeight = 0.3;
+				    configs.circleThickness = 0.1;
+				    configs.circleFillGap = 0.2;
+				    configs.textVertPosition = 0.8;
+				    configs.waveAnimateTime = 2000;
+				    configs.waveCount = 1;
+				    configs.displayPercent = false;
+				    configs.maxValue = jsonStr.tank_size;
+					gauge11 = loadLiquidFillGauge("fillgaugeb1", 28, configs);
+					gauge11.update(jsonStr.tank_size);
+					
+					var configs1 = liquidFillGaugeDefaultSettings();
+					configs1.waveHeight = 0.3;
+					configs1.circleThickness = 0.1;
+					configs1.circleFillGap = 0.2;
+					configs1.textVertPosition = 0.8;
+					configs1.waveAnimateTime = 2000;
+					configs1.waveCount = 1;
+					configs1.displayPercent = false;
+					configs1.maxValue = jsonStr.tank_size + peopelNum*140;
+					gauge22 = loadLiquidFillGauge("fillgaugeb2", 28, configs1);
+					gauge22.update(jsonStr.tank_size);
+					
+					var configs3 = liquidFillGaugeDefaultSettings();
+					configs3.waveHeight = 0.3;
+					configs3.circleThickness = 0.1;
+					configs3.circleFillGap = 0.2;
+					configs3.textVertPosition = 0.8;
+					configs3.waveAnimateTime = 2000;
+					configs3.waveCount = 1;
+					configs3.displayPercent = false;
+					configs3.maxValue = jsonStr.tank_size*2;
+					gauge33 = loadLiquidFillGauge("fillgaugeb3", 28, configs3);
+					gauge33.update(jsonStr.tank_size);
+					
+					$.ajax({
+						type: "POST",
+						url: "http://api.usewaterwisely.tk/api/getwaterlevels",
+						contentType: "application/json; charset=utf-8",
+						data: JSON.stringify(gettanksize2(id, y, jsonStr.tank_size)),
+						dataType: "json",
+						//jsonpCallback: "jsonpcallback",
+						async: false,
+						success: function(data)
+						{
+							var text = data;
+							allText = data;
+							changeTankMonth(0);
+						},
+						error: function (message) {
+						}
+				});
+				},
+				error: function (message) {
+				}
+		});
+		}
+
+		toMain();
+		cont++
+		return;
+	}
+
+}
+function changeMonth(number)
+    {
+        gauge.update(allText[number].volume);
+        $("#volumeTag").html("overflow: " + allText[number].overflow.toFixed(1) + " Litres");
+
+        $("#deficitTag").html("deficit: " + allText[number].deficit.toFixed(1) + " Litres");
+        var tank = $("#waterLitre").val();
+
+        if (allText[number].overflow > 0)
+            $("#overflowss").html('Your tank expects an overflow this month');
+        else
+            $("#overflowss").html('');
+    }
+
+    function changeTankMonth(number)
+    {
+        gauge11.update(allText[number].volume);
+        gauge22.update(allText[number].volume);
+        var configs = liquidFillGaugeDefaultSettings();
+        configs.waveHeight = 0.3;
+		configs.circleThickness = 0.1;
+		configs.circleFillGap = 0.2;
+		configs.textVertPosition = 0.8;
+		configs.waveAnimateTime = 2000;
+		configs.waveCount = 1;
+		configs.displayPercent = false;
+		var maxsize
+		if (number == 11)
+			maxsize = allText[0].volume + allTanks.tank_size;
+		else
+			maxsize = allText[number + 1].volume + allTanks.tank_size;
+		configs.maxValue = maxsize;
+		var gauge44 = loadLiquidFillGauge("fillgaugeb3", 28, configs);
+		gauge44.update(allText[number].volume);
+		$("#finaTankSize").html('tank size:<br>'+maxsize);
+    }
+
+function gettanksize(id, val)
+{
+	var strr = ""+id;
+	var strrSub = ""+val
+	var roofArea = $("#area").val();
+	if (roofArea == '')
+		roofArea = '200';
+	var peopelNum = $("#peopelNum").val();
+	if (peopelNum == '')
+		peopelNum = '1';
+	var json = {
+			"code":strr,
+			"suburb":strrSub,
+			"roof_area" : roofArea,
+			"household_number": peopelNum
+		};
+		return json;
+}
+function gettanksize2(id, val, tanksize)
+{
+	var strr = ""+id;
+	var strrSub = ""+val
+	var roofArea = $("#area").val();
+	if (roofArea == '')
+		roofArea = '200';
+	var peopelNum = $("#peopelNum").val();
+	if (peopelNum == '')
+		peopelNum = '1';
+	var json = {
+			"code":strr,
+			"suburb":strrSub,
+			"roof_area" : roofArea,
+			"household_number": peopelNum,
+			"tank_capacity": tanksize
+		};
+		return json;
+}
+function getJsonDate2(id, val)
+{
+	var strr = ""+id;
+	var strrSub = ""+val
+	var roofArea = $("#area").val();
+	if (roofArea == '')
+		roofArea = '200';
+	var peopelNum = $("#peopelNum").val();
+	if (peopelNum == '')
+		peopelNum = '1';
+	var tank = $("#waterLitre").val();
+	if (tank == '')
+		tank = null;
+	if (tank != null)
+	{
+		var json = {
+				"code":strr,
+				"suburb":strrSub,
+				"roof_area" : roofArea,
+				"household_number": peopelNum,
+				"tank_capacity": tank
+			};
+			return json;
+	}
+	else
+	{
+		var json = {
+				"code":strr,
+				"suburb":strrSub,
+				"roof_area" : roofArea,
+				"household_number": peopelNum
+			};
+			return json;
+	}
+		
+}
+
+	function toMain()
+	{
+		$(".rainfall").show();
+		$(".costchat").hide();
+		$("#toMain").addClass("btn-primary");
+		$("#toMain").addClass("active");
+		$("#toCost").removeClass("btn-primary");
+		$("#toCost").removeClass("active");
+	}
+	function toCost()
+	{
+		$(".rainfall").hide();
+		$(".costchat").show();
+		$("#toMain").removeClass("btn-primary");
+		$("#toMain").removeClass("active");
+		$("#toCost").addClass("btn-primary");
+		$("#toCost").addClass("active");
+	}
+	$("#waterLitre").blur(
+		function(){
+			var varText = $("#waterLitre").val();
+			if(/^[0-9.]*$/.test(varText))
+			{
+				$("#waterLitre").css("background-color", "white");
+				$("#waterLitre").removeClass("invalid");
+			}
+			else
+			{
+				$("#waterLitre").css("background-color", "#FFE1E1");
+				$("#waterLitre").addClass("invalid");
+			}
+		});
+
+	$("#localization").blur(
+		function(){
+			var varText = $("#localization").val();
+			if(/^[A-Za-z ]+$/.test(varText))
+			{
+				$("#localization").css("background-color", "white");
+				$("#localization").removeClass("invalid");
+			}
+			else
+			{
+				$("#localization").css("background-color", "#FFE1E1");
+				$("#localization").addClass("invalid");
+			}
+		});
+	$("#postCode").blur(
+		function(){
+			var varText = $("#postCode").val();
+			if(/^[0-9.-]*$/.test(varText))
+			{
+				$("#postCode").css("background-color", "white");
+				$("#postCode").removeClass("invalid");
+			}
+			else
+			{
+				$("#postCode").css("background-color", "#FFE1E1");
+				$("#postCode").addClass("invalid");
+			}
+		});
+	$("#peopelNum").blur(
+			function(){
+				var varText = $("#peopelNum").val();
+				if(/^[0-9]+$/.test(varText))
+				{
+					if (varText > 15 || varText < 1)
+					{
+						$("#peopelNum").css("background-color", "#FFE1E1");
+						$("#peopelNum").addClass("invalid");
+					}
+					else
+					{
+						$("#peopelNum").css("background-color", "white");
+						$("#peopelNum").removeClass("invalid");
+					}
+				}
+				else
+				{
+					$("#peopelNum").css("background-color", "#FFE1E1");
+					$("#peopelNum").addClass("invalid");
+				}
+			});
+	function addTank()
+	{
+		$("#waterLitre").addClass("haveTank")
+		notank();
+	}
+	function removeTank()
+	{
+		$("#waterLitre").removeClass("haveTank")
+		notank();
+	}
+	function notank(obj)
+	{
+		if(!$("#waterLitre").hasClass("haveTank"))
+		{
+			$("#waterLitre").val("");
+			$("#waterLitre").css("background-color", "white");
+			$("#waterLitre").removeClass("invalid");
+			$("#waterLitre").addClass("haveTank");
+			$("#waterLitre").attr("disabled",true);
+			$(obj).text("Have Tank");
+		}
+		else
+		{
+			$("#waterLitre").val("");
+			$("#waterLitre").css("background-color", "white");
+			$("#waterLitre").removeClass("invalid");
+			$("#waterLitre").removeClass("haveTank");
+			$("#waterLitre").attr("disabled",false);
+			$(obj).text("No Tank");
+		}
+	}
+	
+	function addRoof()
+	{
+		$("#area").addClass("haveRoof")
+		noRoof();
+	}
+	function removeRoof()
+	{
+		$("#area").removeClass("haveRoof")
+		noRoof();
+	}
+	function noRoof(obj)
+	{
+		if(!$("#area").hasClass("haveRoof"))
+		{
+			$("#area").val("");
+			$("#area").css("background-color", "white");
+			$("#area").removeClass("invalid");
+			$("#area").addClass("haveRoof");
+			$("#area").attr("disabled",true);
+			$(obj).text("Know Roof Area");
+		}
+		else
+		{
+			$("#area").val("");
+			$("#area").css("background-color", "white");
+			$("#area").removeClass("invalid");
+			$("#area").removeClass("haveRoof");
+			$("#area").attr("disabled",false);
+			$(obj).text("Dont Know Roof Area");
+		}
+	}
+$("#area").blur(
+		function(){
+			var varText = $("#area").val();
+			if(/^[0-9.]*$/.test(varText))
+			{
+				$("#area").css("background-color", "white");
+				$("#area").removeClass("invalid");
+			}
+			else
+			{
+				$("#area").css("background-color", "#FFE1E1");
+				$("#area").addClass("invalid");
+			}
+		});
+
+function GetJsonData() {
+	var localization = $("#localization").val();
+    var json = {
+        "location": localization
+    };
+    return json;
+}
+</script>
+</html>
