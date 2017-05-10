@@ -187,7 +187,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3" style="padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
+					<div class="col-md-3" style="margin-left:10px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
 						<input type="radio" name="radio1" onclick="addTank()" checked="checked" value="yes" /><span style="font-size: 15px">  I have tank: </span>
 						<div class="input-group" id="tank1">
 							<input type="text" id="waterLitre" class="form-control" placeholder="please type in tank size" onchange=""  style="width:200px">
@@ -198,7 +198,7 @@
 
 					</div>
 					<br>
-					<div class="col-md-4" style="margin-left: -50px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
+					<div class="col-md-4" style="margin-left: 0px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
 						<div class="input-group" style=" margin-top: 3px;">
 							<input type="text" id="area" class="form-control" style="width:200px; height:35px;" placeholder="please type in roof area" onchange="">
 							<div class="input-group-addon" style="width:60px; height:35px;">m&sup2; </div>
@@ -237,12 +237,12 @@
 
 
 					</div>
-					<div class="col-md-1" style="margin-left: -180px;margin-top: 3px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;width: 250px;">
+					<div class="col-md-1" style="margin-left: -100px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;width: 250px;">
 						<div class="input-group">
 							<input type="text" id="peopelNum" style="width: 230px"placeholder= "type in house holder number" class="form-control">
 						</div>
 					</div>
-					<div class="col-md-2" style="background: #37bec9;padding-top: 15px;font-size: 12px;">
+					<div class="col-md-1" style="background: #37bec9;padding-top: 15px;font-size: 12px;">
 						<br>
 						<button type="button" id="submitAPI" class="btn btn-default btn-primary" onClick="submitAPI();" style="float:right">Submit</button>
 					</div>
@@ -529,7 +529,7 @@ function submitAPI()
                     $("#mainText").append('<h4>Your Tank Water levels from the run-off collected from your Roof</h4>');
 					$("#mainText").append('<div id="main2_'+countNum+'" class="rainfall2"></div>');
 					$("#mainText").append('<hr size="30">');
-                    $("#mainText").append('<h4>Your Household Demands for any month in an year</h4>');
+                    $("#mainText").append('<h4>Your Household Demands for any month in a year</h4>');
                     $("#mainText").append('<div id="main3_'+countNum+'" class="rainfall2"></div>');
                     $("#mainText").append('<hr size="30">');
                     $("#mainText").append('<h4>Percentage of water from your tank that will serve your household requirements</h4>');
