@@ -287,7 +287,7 @@ function getpostCode()
 {	
 	$.ajax({
         type: "POST",
-        url: "http://localhost:8000/api/searchlocation",
+        url: "http://api.usewaterwisely.tk/api/searchlocation",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(GetJsonData()),
         dataType: "json",
@@ -424,7 +424,7 @@ function submitAPI()
 	var jsondata = null;
     $.ajax({
         type: "POST",
-        url: "http://localhost:8000/api/searchlocation",
+        url: "http://api.usewaterwisely.tk/api/searchlocation",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(GetJsonData()),
         dataType: "json",
@@ -462,7 +462,7 @@ function submitAPI()
 		{
 			$.ajax({
 				type: "POST",
-				url: "http://localhost:8000/api/getwaterlevels",
+				url: "http://api.usewaterwisely.tk/api/getwaterlevels",
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify(getJsonDate2(id, y)),
 				dataType: "json",
@@ -1374,7 +1374,7 @@ function submitAPI()
 					//op3
 					$.ajax({
 						type: "POST",
-						url: "http://localhost:8000/api/gettanksize",
+						url: "http://api.usewaterwisely.tk/api/gettanksize",
 						contentType: "application/json; charset=utf-8",
 						data: JSON.stringify(gettanksize(id, y)),
 						dataType: "json",
@@ -1502,7 +1502,7 @@ function submitAPI()
 		{
 			$.ajax({
 				type: "POST",
-				url: "http://localhost:8000/api/gettanksize",
+				url: "http://api.usewaterwisely.tk/api/gettanksize",
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify(gettanksize(id, y)),
 				dataType: "json",
@@ -1618,7 +1618,7 @@ function submitAPI()
 					
 					$.ajax({
 						type: "POST",
-						url: "http://localhost:8000/api/getwaterlevels",
+						url: "http://api.usewaterwisely.tk/api/getwaterlevels",
 						contentType: "application/json; charset=utf-8",
 						data: JSON.stringify(gettanksize2(id, y, jsonStr.tank_size)),
 						dataType: "json",
