@@ -1,0 +1,47 @@
+@import
+url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
+
+h1 {
+    font-size: 100vw;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+
+.container{
+    min-height:100%; postition:relative;}
+.wrapper{
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+* {
+    /* reset */
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    /* for demo purposes only */
+    height: 100%;
+}
+
+.inner {
+
+}
+.wide-div {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+
+}
+
+.homepage-top-right-col .panel-footer{
+    position:absolute;
+    width:100%;
+    bottom:0;
+}
+
+.stick {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+

@@ -1,15 +1,98 @@
-<!-- The header of HTML page to use the Java script -->
-<script src="js/jquery.min.js"></script>
-<script src="js/echarts.common.min.js"></script>
-<script src="js/d3.v4.js" language="JavaScript"></script>
-<script src="js/liquidFillGauge.js" language="JavaScript"></script>
-<script src="js/bootstrap3-typeahead.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<!-- The link to mention the css style of the website -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<html>
+<!DOCTYPE html>
 <head>
+    <!-- The header of HTML page to use the Java script -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/d3.v4.js" language="JavaScript"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//oss.maxcdn.com/jquery.trip.js/3.3.3/trip.min.js"></script>
+    <!-- The link to mention the css style of the website -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/jquery.trip.js/3.3.3/trip.min.css"/>
     <style>
+
+        * {box-sizing:border-box}
+        body {font-family: Verdana,sans-serif;}
+        .mySlides {display:none}
+
+
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 800px;
+            position: relative;
+            margin: auto;
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        /* The dots/bullets/indicators */
+        .dot {
+            height: 13px;
+            width: 13px;
+            margin: 0 2px;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 2s;
+            animation-name: fade;
+            animation-duration: 2s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        /* On smaller screens, decrease text size */
+        @media only screen and (max-width: 300px) {
+            .text {font-size: 11px}
+        }
+
+        .img-responsive{
+            width:40px;
+        }
+        img{
+            display: block;
+            margin: auto;
+            width: 40%;
+        }
+        td{
+            width: 14%;
+            text-align: center;
+        }
         #map,
         html,
         body {
@@ -18,57 +101,52 @@
             height: 100%;
         }
 
-		#description {
-			font-family: Roboto;
-			font-size: 15px;
-			font-weight: 300;
-		}
+        #description {
+            font-family: Roboto;
+            font-weight: 300;
+        }
         #infowindow-content .title {
             font-weight: bold;
         }
 
-		#infowindow-content {
-			display: none;
-		}
+        #infowindow-content {
+            display: none;
+        }
 
-		#map #infowindow-content {
-			display: inline;
-		}
+        #map #infowindow-content {
+            display: inline;
+        }
 
-		.pac-card {
-			margin: 10px 10px 0 0;
-			border-radius: 2px 0 0 2px;
-			box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			outline: none;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-			background-color: #fff;
-			font-family: Roboto;
-		}
+        .pac-card {
+            margin: 10px 10px 0 0;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            font-family: Roboto;
+        }
 
-		#pac-container {
-			padding-bottom: 12px;
-			margin-right: 12px;
-		}
+        #pac-container {
+            padding-bottom: 12px;
+            margin-right: 12px;
+        }
 
-		.pac-controls {
-			display: inline-block;
-			padding: 5px 11px;
-		}
+        .pac-controls {
+            display: inline-block;
+            padding: 5px 11px;
+        }
 
         .pac-controls label {
             font-family: Roboto;
-            font-size: 13px;
             font-weight: 300;
         }
 
         #pac-input {
-            background-color: #fff;
             font-family: Roboto;
-            font-size: 15px;
             font-weight: 300;
             margin-top: 5px;
-			margin-left: 10px;
+            margin-left: 10px;
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
             width: 400px;
@@ -79,50 +157,50 @@
             border-color: #4d90fe;
         }
 
-		#title {
-			color: #fff;
-			background-color: #4d90fe;
-			font-size: 25px;
-			font-weight: 500;
-			padding: 6px 12px;
-		}
-		#target {
-			width: 345px;
-		}
+        #target {
+            width: 345px;
+        }
 
         #delete-button {
             margin-top: 5px;
         }
-		.pac-container{
-			z-index: 1051 !important;
-		}
+        .pac-container{
+            z-index: 1051 !important;
+        }
 
-		#container {
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid black;
-			overflow: auto;
-			width: 800px;
-		}
-		#nav {
-			width: 19%;
-			border: 1px solid green;
-			float:left;
-		}
-		#content {
-			width: 79%;
-			border: 1px solid red;
-			float:right;
-		}
+        #container {
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            overflow: auto;
+            width: 800px;
+        }
+        #nav {
+            width: 19%;
+            border: 1px solid green;
+            float:left;
+        }
+        #content {
+            width: 79%;
+            border: 1px solid red;
+            float:right;
+        }
+
     </style>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>UseWaterWisely</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/res.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
     <script async src="//jsfiddle.net/geocodezip/hk82v0zp/2/embed/"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAHSdBgQpz0JTttbx_Y4eyi4ztWCFVy5ZA&libraries=drawing,places"></script>
     <script type="text/javascript">
@@ -146,1791 +224,1721 @@
             }
 
         });
-	</script>
-	<style type="text/css">
-		.bs-example{
-			margin: 20px;
-		}
-	</style>
-	<!-- Mention the title of the website -->
-<title>UseWaterWisely</title>
-	<!-- Mention the shotcut icon for images -->
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    </script>
+    <!-- Mention the shotcut icon for images -->
+    <style>
+        @font-face { font-family: Bat; src: url('style/dark.ttf'); }
+
+    </style>
 </head>
 <body>
-<!-- This part mention the header of main page panel -->
-<div class="container" style="width: 100%;">
-	<div class="panel">
-  	  	  <div class="panel-heading" style="background-color: #1f2d53;color: #fff;font-family: Quicksand,sans-serif;">
-  	  	  	  <div class="panel-title">
-				  <h3>
-					  <!-- Add team logo to the website header -->
-					  <img src="img/logo.png" style='max-height:50px;max-width:50px;'>
-					  <!-- Add the website name to the website header -->
-					  UseWaterWisely
-					  <!-- Use the Javascript of build up the part of page title -->
-					  <a href="javascript;" class="pull-right" data-toggle="modal" data-target="#helpDiv">
-						  <i class="fa fa-question-circle-o"></i>
-					  </a>
+<div class="panel" style="background-image: url('img/waterflow.jpg')">
+    <div class="panel-heading" style="text-align: center;vertical-align: middle;background-image: url('img/waterlogo.png');background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <h1 style="font-family: bat; font-size: 80px;">UseWaterWisely</h1>
+    </div>
 
-				  </h3>
-  	  	  	  </div>
-  	  	  </div>
+<div class="panel-body"></div>
+    <div class="container" >
 
-  	  	  <div class="panel-body">
-				<div class="form-group" style="background: #37bec9;height:20%">
-					<div class="col-md-2" style="padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
-						<br>
-						<div class="form-inline">
-							<div class="input-group" style="float:left;margin-top: 5px;">
-								<input type="text" id="localization" class="form-control" placeholder="please type in suburb name" onchange="">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3" style="margin-left:10px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
-						<input type="radio" name="radio1" onclick="addTank()" checked="checked" value="yes" /><span style="font-size: 15px">  I have tank: </span>
-						<div class="input-group" id="tank1">
-							<input type="text" id="waterLitre" class="form-control" placeholder="please type in tank size" onchange=""  style="width:200px">
-							<div class="input-group-addon" style="width:60px">Litres</div>
-						</div>
-						<br>
-						<input type="radio" name="radio1" onclick="removeTank()" value="no"/><span style="font-size: 15px">  no tank, tank size is zero</span>
+        <div id="mainMenuBarAnchor"></div>
+        <div class="wrapper" id="mainMenuBar" style="background-color: skyblue;">
+            <br>
+            <div class="inner" style="">
+                <form class="form-inline">
 
-					</div>
-					<br>
-					<div class="col-md-4" style="margin-left: 0px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
-						<div class="input-group" style=" margin-top: 3px;">
-							<input type="text" id="area" class="form-control" style="width:200px; height:35px;" placeholder="please type in roof area" onchange="">
-							<div class="input-group-addon" style="width:60px; height:35px;">m&sup2; </div>
+                    <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
+                        <input type="text" id="localization" class="form-control" placeholder="Enter suburb name" onchange="">
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
+                        <label><input type="checkbox" id="checkTank"> I have a tank </label>
+                        <input type="text" style="display: none;" id="waterLitre" class="form-control" placeholder="Enter tank size" onchange="" >
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
+                        <!-- Button HTML (to Trigger Modal) -->
+                        <a href="#" class="btn btn-lg btn-default" onclick="calroof()" style="height: 40px; background-color: pink;">Calculate My Roof</a>
 
-						</div>
+                        <!-- Modal HTML -->
+                        <div id="myModal" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Roof area calculate</h4>
+                                    </div>
+                                    <div class="modal-body" style="width: 500px; height:500px;">
 
-						<div class="input-group" style="padding-bottom: 15px;padding-top: 15px;font-size: 12px;">
-							<!-- Button HTML (to Trigger Modal) -->
-							<a href="#" class="btn btn-lg btn-primary" onclick="calroof()" style="width:120px; height:30px; font-size:8px;">Calculate My Roof</a>
+                                        <div id="map" style="width: 500px;"></div>
+                                        <input id="pac-input" class="controls" type="text" placeholder="Type in your home address">
 
-							<!-- Modal HTML -->
-							<div id="myModal" class="modal fade">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h4 class="modal-title">Roof area calculate</h4>
-										</div>
-										<div class="modal-body" style="width: 500px; height:500px;">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div>
+                                            <div id="areaB"></div>
+                                        </div>
+                                        <button id="delete-button" class="btn btn-default" onclick="deleteSelectedShape()">Delete Selected Shape</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveRoof()">Save and Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label><input type="checkbox" id="checkRoof" style="margin-left: 10px"> I know my roof area  </label>
+                        <input type="text" style="display: none;"id="area" class="form-control" placeholder="Enter roof area" onchange="">
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
+                        <input type="text" id="peopelNum" class="form-control" placeholder= "Number of residents" onchange="">
+                    </div>
 
-                                            <div id="map" style="width: 500px;"></div>
-                                            <input id="pac-input" class="controls" type="text" placeholder="Type in your home address">
+                    <button type="button" style="margin-right: 20px;margin-left: 20px;" id="submitAPI" class="btn btn-default btn-primary" onClick="submitAll()" style="float:right">Submit</button>
+                </form>
+            </div>
 
-										</div>
-										<div class="modal-footer">
-                                            <div>
-                                                <div id="areaB"></div>
-                                            </div>
-                                            <button id="delete-button" class="btn btn-default" onclick="deleteSelectedShape()">Delete Selected Shape</button>
-											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveRoof()">Save and Close</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+            <br>
+        </div>
+        <div id="showResult" style="width: 1200px; display:none; background-color: white;" >
+            <div id = "part1">
+                <h4>Your Tank Water levels from the run-off collected from your Roof</h4>
+                <div id = "chartID" style="background-color: white;">
+
+                </div>
+            </div>
+
+            <hr>
+            <div id="part2">
+                <h4>Your Household Demands for any month in an year</h4>
+                <div id = "DemandChart" style="background-color: white;">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th><img src="images/demand.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/shower.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/toilet.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/kitchen.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/gardening.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/washing.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                            <th><img src="images/water_misc.png" class="img-responsive" alt="" border=3 height=40 width=40></img></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span style="font-weight:bold">Total Demands(Litres)</span></td>
+                            <td>7-9 min Shower</td>
+                            <td>Dual-flush Toilet</td>
+                            <td>Kitchen</td>
+                            <td>Gardening</td>
+                            <td>Washing Machine</td>
+                            <td>Miscellaneous</td>
+                        </tr>
+                        <tr>
+                            <td id="total"></td>
+                            <td id="shower"></td>
+                            <td id="toilet"></td>
+                            <td id="kitchen"></td>
+                            <td id="gardening"></td>
+                            <td id="washing"></td>
+                            <td id="misc"></td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-weight:bold">Recommended Water Practices(per person)</span></td>
+                            <td>1 shower per day with AAA rated showerhead </td>
+                            <td>35 flushes per week</td>
+                            <td>Use of dishwasher and water efficient taps</td>
+                            <td>Use of Water efficient Irrigation systems</td>
+                            <td>1-2 loads per week with AAA rated washing machine</td>
+                            <td>Minimised water use for cleaning purposes</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+            <div id="part3">
+                <h4>Security of water supply for your household requirements</h4>
+                <p>The chart below shows the percentage of water that can serve your demands from the tank.</p>
+                <div id = "securityChart" style="background-color: white;">
+
+                </div>
+            </div>
+
+            <hr>
+            <div id="part4">
+                <h4 align="middle">Tank Size Suggestions</h4>
+                <p>Enter the suggested sizes as the tank size above and get to know about your water resources.</p>
+                <div id = "suggestionChart" style="background-color: white;">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 
-					</div>
-					<div class="col-md-1" style="margin-left: -100px;padding-bottom: 15px;padding-top: 15px;font-size: 12px;width: 250px;">
-						<div class="input-group">
-							<input type="text" id="peopelNum" style="width: 230px"placeholder= "type in house holder number" class="form-control">
-						</div>
-					</div>
-					<div class="col-md-1" style="background: #37bec9;padding-top: 15px;font-size: 12px;">
-						<br>
-						<button type="button" id="submitAPI" class="btn btn-default btn-primary" onClick="submitAPI();" style="float:right">Submit</button>
-					</div>
-				</div>
-				<div class="form-group">
-			  		<div class="col-md-12" id="mainText" >
-						<h1 style="font-size:300%;">Welcome to UseWaterWisely!</h1>
+    <div id="changePage" style="width: 800px; margin-left: 300px; margin-top: 30px;" >
+        <div class="slideshow-container" >
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img src="img/slide-1.png" style="width:100%">
+            </div>
 
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img src="img/slide-2.png" style="width:100%">
+            </div>
 
-						<p style="font-size:160%;">This website's motive is to guide suburban gardeners on the water resources available for their garden and plan the usage of resources effectively.
-							To start with, provide your suburb, water tank details and your house roof area, to calculate the run-off water amount for your tank and the water-usage cost when you buy the run-off water from a Metropolitan Water provider
-						</p>
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img src="img/slide-3.png" style="width:100%">
+            </div>
 
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
 
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="panel-footer" style="background-color: #1f2d53;color: #fff;font-family: Quicksand,sans-serif;"> &copy; Copyright by The Superflys 2017 - Monash University Industry Project - All rights reserved.</div>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+
+    <div class="panel-footer">  &copy; Copyright by The Superflys 2017 - Monash University Industry Project - All rights reserved.</div>
+
 </div>
 
 </body>
+<script>
+    causeRepaintsOn = $("h1, h2, h3, p");
 
-<script type="application/javascript">
-	toMain();
-	var mysub1;
-	var mytank1;
-	var myroof1;
+    $(window).resize(function() {
+        causeRepaintsOn.css("z-index", 1);
+    });
+
+    $('#checkTank').click(function() {
+        $('#waterLitre')[this.checked ? "show" : "hide"]();
+    });
+    $('#checkRoof').click(function() {
+        $('#area')[this.checked ? "show" : "hide"]();
+    });
+
+    toMain();
+    var mysub1;
+    var mytank1;
+    var myroof1;
     var peopelNum;
     var nop;
     var areaA = 0;
     var areaB = 0;
-	var nameList = [
-    'Melbourne','East Melbourne','West Melbourne','St Kilda Road Central','South Wharf','Southbank','Docklands','University Of Melbourne','Footscray','Seddon West','Seddon','Flemington','Kensington','Hotham Hill','North Melbourne','Melbourne University','Carlton','Carlton South','Carlton North','Princes Hill','Fitzroy','Abbotsford','Clifton Hill','Fitzroy North','St Kilda','St Kilda West','St Kilda South','Balaclava','St Kilda East','Brighton Road','Elwood','South Melbourne','Albert Park','Middle Park','Garden City','Port Melbourne','Brooklyn','Maidstone','Kingsville','Tottenham','Kingsville West','West Footscray','Yarraville','Yarraville West','Braybrook','Robinson','Braybrook North','Albion','Sunshine North','Glengala','Sunshine West','Sunshine','Albanvale','Kings Park','Kealba','St Albans','Ardeer','Deer Park East','Burnside','Deer Park ','Burnside Heights','Deer Park North','Cairnlea','Ravenhall','Caroline Springs','Ascot Vale','Maribyrnong','Highpoint City','Travancore','Keilor East','Avondale Heights','Keilor','Keilor North','Calder Park','Sydenham','Delahey','Taylors Hill','Hillside','Keilor Downs','Taylors Lakes','Keilor Lodge','Watergardens','Greenvale','Oaklands Junction','Yuroke','Plumpton','Rockbank','Kurunjang','Melton West','Melton','Toolern Vale','Brookfield','Eynesbury','Exford','Melton South','Diggers Rest','Bulla','Sunbury','Wildwood','Newport','Spotwood','South Kingsville','Williamstown','Williamstown North','Altona','Seaholme','Mambourin','Wyndham Vale','Mount Cottrell','Altona East','Altona North','Altona Gate','Laverton North','Williams Landing','Altona Meadows','Seabrook','Laverton','Hoppers Crossing','Truganina','Tarneit','Cocoroc','Quandong','Derrimut','Werribee','Point Cook','Werribee South','Little River','Moonee Ponds','Aberfeldie','Essendon West','Essendon','Essendon Fields','Strathmore','Essendon North','Strathmore Heights','Airport West','Niddrie','Keilor Park','Gladstone Park','Tullamarine','Gowanbrae','Pascoe Vale','Pascoe Vale South','Glenroy','Oak Park','Hadfield','Broadmeadows','Jacana','Dallas','Coolaroo','Meadow Heights','Attwood','Westmeadows','Brunswick South','Moonee Vale','Brunswick West','Moreland West','Brunswick','Brunswick North','Brunswick Lower','Brunswick East','Sumner','Batman','Merlynston','Coburg','Moreland','Coburg North','Fawkner','Campbellfield','Somerton','Craigieburn','Mickleham','Donnybrook','Roxburgh Park','Kalkallo','Northcote','Northcote South','Thornbury','Gilberton','Preston South','Northland Centre','Preston West','Preston','Regent West','Preston Lower','Reservoir','Thomastown','Lalor','Epping','Alphington','Fairfield','Ivanhoe','Ivanhoe North','Ivanhoe East','Bellfield','Heidelberg Rgh','Heidelberg Heights','Heidelberg West','Mill Park','Bundoora','La Trobe University','Kingsbury','Banyule','Rosanna','Eaglemont','Viewbank','Heidelberg','Macleod','Yallambie','Macleod West','Macleod','Briar Hill','St Helena','Greensborough','Diamond Creek','Plenty','Yarrambat','Lower Plenty','Montmorency','Eltham','Resarch','Eltham North','Wattle Glen','Arthurs Creek','Nutfield','Cottles Bridge','Strathewen','Hurstbrdge','Wollert','Woodstock','South Morang','Beveridge','Yan Yean','Eden Park','Kinglake West','Humevale','Pheasant Creek','Kinglake Central','Whittlesea','Bend Of Islands','Watsons Creek','Kangaroo Ground','Donvale','North Warrandyte','Warrandyte','Park Orchards','Wonga Park','Chirnside Park','Brentford Square','Nunawading','Forest Hill','Mitcham','Rangeview','Mitcham North','Vermont','Vermont South','Heathwood','Warrandyte South','Ringwood','Warranwood','Ringwood North','Bedford Road','Ringwood East','Heathmont','Croydon','Croydon North','Croydon Hills','Croydon South','Kilsyth','Kilsyth South','Mooroolbark','Beenak','Seville East','Don Valley','Wandin East','Hoddles Creek','Wandin North','Launching Place','Woori Yallock','Seville ','Yellingbo','Lilydale','Brandon Park','Wheelers Hill','Glen Waverley','Burwood East','Burwood Heights','Knox City Centre','Wantirna','Studfield','Wantirna South','Bayswater','Bayswater North','The Basin','Boronia','Ferntree Gully','Mountain Gate','Lysterfield','Upper Ferntree Gully','Lysterfield South','Upwey','Menzies Creek','Selby','Belgrave','Belgrave South','Belgrave Heights','Tecoma','Rowville','Scoresby','Knoxfield','Panton Hill','Smiths Gully','St Andrews','Kinglake','Montrose','Kalorama','Mount Dandenong','Coldstream','Yering','Gruyere','Christmas Hills','Tarrawarra','Dixons Creek','Yarra Glen','Steels Creek','Badger Creek','Healesville Main Street','Castella','Healesville Post Shop','Chum Creek','Mount Toolebewong','Healesville','Toolangi','Tremont','Ferny Creek','Sassafras','Sassafras Gully','Olinda','Sherbrooke','Kallista','The Patch','Monbulk','Silvan','Mount Evelyn','Gilderoy','Three Bridges','Gladysdale','Yarra Junction','Powelltown','Narre Warren East','Narre Warren North','Cotham','Kew','Kew East','Balwyn','Deepdene','Balwyn East','Balwyn North','Greythorn','Bulleen','Templestowe','Templestowe Lower','Doncaster','Doncaster East','The Pines','Doncaster Heights','Burnley','Richmond East','Burnley North','Richmond North','Cremorne','Richmond South','Richmond','Auburn South','Hawthorn North','Glenferrie South','Hawthorn West','Hawthorn','Auburn','Hawthorn East','Camberwell','Camberwell West','Camberwell North','Hartwell','Camberwell South','Middle Camberwell','Camberwell East','Canterbury','Box Hill','Houston','Box Hill Central','Wattle Park','Box Hill South','Box Hill North','Mont Albert North','Kerrimuir','Blackburn','Blackburn South','Blackburn North','Laburnum','South Yarra','Hawksburn','Toorak','Armadale','Armadale North','Kooyong','Malvern North','Malvern','Caulfield East','Darling South','Central Park','Malvern East','Darling','Wattletree Road Po','Caulfield Junction','Caulfield North','Prahran','Windsor','Prahran East','Caulfield','Hopetoun Gardens','Caulfield South','Glen Huntly','Carnegie','Murrumbeena','Bentleigh East','Hughesdale','Oakleigh South','Clayton','Notting Hill','Clarinda','Clayton South','Dingley Village','Springvale South','Keysborough','Elsternwick','Ripponlea','Gardenvale','Brighton','Dendy','Brighton North','Were Street Po','Brighton East','North Road','Hampton','Hampton North','Hampton East','Moorabbin','Wishart','Moorabbin East','Highett','Sandringham','Cheltenham','Southland Centre','Chetenham East','Beaumaris','Black Rock North','Black Rock','Cromer','Mentone','Moorabbin Airport','Mentone East','Aspendale','Mordialloc','Aspendale Gardens','Parkdale','Braeside','Waterways','Bonbeach','Chelsea Heights','Chelsea','Edithvale','Carrum','Patterson Lakes','Heatherton','Bentleigh','Ormond','Mckinnon','Patterson','Monash University','Mulgrave','Waverley Gardens','Sandown Village','Springvale','Noble Park','Noble Park North','Bangholme','Dandenong North','Dandenong','Dandenong South','Dandenong East','Dunearn','Doveton','Eumemmerring','Cockatoo','Nangana','Mount Burnett','Avonsleigh','Emerald','Clematis','Macclesfield','Gembrook','Endeavour Hills','Hallam','Fountain Gate','Narre Warren South','Narre Warren','Berwick','Harkaway','Beaconsfield','Guys Hill','Beaconsfield Upper','Dewhurst','Officer','Officer South','Pakenham','Pakenham Upper','Pakenham South','Rythdale','Maryknoll','Nar Nar Goon North','Nar Nar Goon','Tynong','Tynong North','Cora Lynn','Garfield North','Garfield','Vervale','Bunyip','Iona','Bunyip North','Tonimbuk','Lynbrook','Lyndhurst','Hampton Park','Botanic Ridge','Cranbourne West','Cannons Creek','Devon Meadows','Cranbourne','Junction Village','Cranbourne East','Sandhurst','Cranbourne North','Skye','Cranbourne South','Cardinia','Clyde North','Clyde','Blind Bight','Warneet','Tooradin','Bayles','Koo Wee Rup','Catani','Koo Wee Rup North','Dalmore','Yannathan','Heath Hill'];
-	$("#localization").typeahead({
-		source: nameList
-	});
-
-
-
-function getpostCode()
-{	
-	$.ajax({
-        type: "POST",
-        url: "http://api.usewaterwisely.tk/api/searchlocation",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(GetJsonData()),
-        dataType: "json",
-        //jsonpCallback: "jsonpcallback",
-        async: false,
-        success: function(data)
-		{
-			if(data.locations == null || attributeCount(data.locations) == 0)
-					alert("Warning: Please input valid suburb name");
-			else
-			{
-				for (var y in data.locations)
-				{
-					var id = data.locations[y];
-					$("#postCode").val(id);
-					return false;
-				}
-			}
-		},
-        error: function (message) {
-        	alert("error.");
-        }
+    var nameList = [
+        'Melbourne','East Melbourne','West Melbourne','St Kilda Road Central','South Wharf','Southbank','Docklands','University Of Melbourne','Footscray','Seddon West','Seddon','Flemington','Kensington','Hotham Hill','North Melbourne','Melbourne University','Carlton','Carlton South','Carlton North','Princes Hill','Fitzroy','Abbotsford','Clifton Hill','Fitzroy North','St Kilda','St Kilda West','St Kilda South','Balaclava','St Kilda East','Brighton Road','Elwood','South Melbourne','Albert Park','Middle Park','Garden City','Port Melbourne','Brooklyn','Maidstone','Kingsville','Tottenham','Kingsville West','West Footscray','Yarraville','Yarraville West','Braybrook','Robinson','Braybrook North','Albion','Sunshine North','Glengala','Sunshine West','Sunshine','Albanvale','Kings Park','Kealba','St Albans','Ardeer','Deer Park East','Burnside','Deer Park ','Burnside Heights','Deer Park North','Cairnlea','Ravenhall','Caroline Springs','Ascot Vale','Maribyrnong','Highpoint City','Travancore','Keilor East','Avondale Heights','Keilor','Keilor North','Calder Park','Sydenham','Delahey','Taylors Hill','Hillside','Keilor Downs','Taylors Lakes','Keilor Lodge','Watergardens','Greenvale','Oaklands Junction','Yuroke','Plumpton','Rockbank','Kurunjang','Melton West','Melton','Toolern Vale','Brookfield','Eynesbury','Exford','Melton South','Diggers Rest','Bulla','Sunbury','Wildwood','Newport','Spotwood','South Kingsville','Williamstown','Williamstown North','Altona','Seaholme','Mambourin','Wyndham Vale','Mount Cottrell','Altona East','Altona North','Altona Gate','Laverton North','Williams Landing','Altona Meadows','Seabrook','Laverton','Hoppers Crossing','Truganina','Tarneit','Cocoroc','Quandong','Derrimut','Werribee','Point Cook','Werribee South','Little River','Moonee Ponds','Aberfeldie','Essendon West','Essendon','Essendon Fields','Strathmore','Essendon North','Strathmore Heights','Airport West','Niddrie','Keilor Park','Gladstone Park','Tullamarine','Gowanbrae','Pascoe Vale','Pascoe Vale South','Glenroy','Oak Park','Hadfield','Broadmeadows','Jacana','Dallas','Coolaroo','Meadow Heights','Attwood','Westmeadows','Brunswick South','Moonee Vale','Brunswick West','Moreland West','Brunswick','Brunswick North','Brunswick Lower','Brunswick East','Sumner','Batman','Merlynston','Coburg','Moreland','Coburg North','Fawkner','Campbellfield','Somerton','Craigieburn','Mickleham','Donnybrook','Roxburgh Park','Kalkallo','Northcote','Northcote South','Thornbury','Gilberton','Preston South','Northland Centre','Preston West','Preston','Regent West','Preston Lower','Reservoir','Thomastown','Lalor','Epping','Alphington','Fairfield','Ivanhoe','Ivanhoe North','Ivanhoe East','Bellfield','Heidelberg Rgh','Heidelberg Heights','Heidelberg West','Mill Park','Bundoora','La Trobe University','Kingsbury','Banyule','Rosanna','Eaglemont','Viewbank','Heidelberg','Macleod','Yallambie','Macleod West','Macleod','Briar Hill','St Helena','Greensborough','Diamond Creek','Plenty','Yarrambat','Lower Plenty','Montmorency','Eltham','Resarch','Eltham North','Wattle Glen','Arthurs Creek','Nutfield','Cottles Bridge','Strathewen','Hurstbrdge','Wollert','Woodstock','South Morang','Beveridge','Yan Yean','Eden Park','Kinglake West','Humevale','Pheasant Creek','Kinglake Central','Whittlesea','Bend Of Islands','Watsons Creek','Kangaroo Ground','Donvale','North Warrandyte','Warrandyte','Park Orchards','Wonga Park','Chirnside Park','Brentford Square','Nunawading','Forest Hill','Mitcham','Rangeview','Mitcham North','Vermont','Vermont South','Heathwood','Warrandyte South','Ringwood','Warranwood','Ringwood North','Bedford Road','Ringwood East','Heathmont','Croydon','Croydon North','Croydon Hills','Croydon South','Kilsyth','Kilsyth South','Mooroolbark','Beenak','Seville East','Don Valley','Wandin East','Hoddles Creek','Wandin North','Launching Place','Woori Yallock','Seville ','Yellingbo','Lilydale','Brandon Park','Wheelers Hill','Glen Waverley','Burwood East','Burwood Heights','Knox City Centre','Wantirna','Studfield','Wantirna South','Bayswater','Bayswater North','The Basin','Boronia','Ferntree Gully','Mountain Gate','Lysterfield','Upper Ferntree Gully','Lysterfield South','Upwey','Menzies Creek','Selby','Belgrave','Belgrave South','Belgrave Heights','Tecoma','Rowville','Scoresby','Knoxfield','Panton Hill','Smiths Gully','St Andrews','Kinglake','Montrose','Kalorama','Mount Dandenong','Coldstream','Yering','Gruyere','Christmas Hills','Tarrawarra','Dixons Creek','Yarra Glen','Steels Creek','Badger Creek','Healesville Main Street','Castella','Healesville Post Shop','Chum Creek','Mount Toolebewong','Healesville','Toolangi','Tremont','Ferny Creek','Sassafras','Sassafras Gully','Olinda','Sherbrooke','Kallista','The Patch','Monbulk','Silvan','Mount Evelyn','Gilderoy','Three Bridges','Gladysdale','Yarra Junction','Powelltown','Narre Warren East','Narre Warren North','Cotham','Kew','Kew East','Balwyn','Deepdene','Balwyn East','Balwyn North','Greythorn','Bulleen','Templestowe','Templestowe Lower','Doncaster','Doncaster East','The Pines','Doncaster Heights','Burnley','Richmond East','Burnley North','Richmond North','Cremorne','Richmond South','Richmond','Auburn South','Hawthorn North','Glenferrie South','Hawthorn West','Hawthorn','Auburn','Hawthorn East','Camberwell','Camberwell West','Camberwell North','Hartwell','Camberwell South','Middle Camberwell','Camberwell East','Canterbury','Box Hill','Houston','Box Hill Central','Wattle Park','Box Hill South','Box Hill North','Mont Albert North','Kerrimuir','Blackburn','Blackburn South','Blackburn North','Laburnum','South Yarra','Hawksburn','Toorak','Armadale','Armadale North','Kooyong','Malvern North','Malvern','Caulfield East','Darling South','Central Park','Malvern East','Darling','Wattletree Road Po','Caulfield Junction','Caulfield North','Prahran','Windsor','Prahran East','Caulfield','Hopetoun Gardens','Caulfield South','Glen Huntly','Carnegie','Murrumbeena','Bentleigh East','Hughesdale','Oakleigh South','Clayton','Notting Hill','Clarinda','Clayton South','Dingley Village','Springvale South','Keysborough','Elsternwick','Ripponlea','Gardenvale','Brighton','Dendy','Brighton North','Were Street Po','Brighton East','North Road','Hampton','Hampton North','Hampton East','Moorabbin','Wishart','Moorabbin East','Highett','Sandringham','Cheltenham','Southland Centre','Chetenham East','Beaumaris','Black Rock North','Black Rock','Cromer','Mentone','Moorabbin Airport','Mentone East','Aspendale','Mordialloc','Aspendale Gardens','Parkdale','Braeside','Waterways','Bonbeach','Chelsea Heights','Chelsea','Edithvale','Carrum','Patterson Lakes','Heatherton','Bentleigh','Ormond','Mckinnon','Patterson','Monash University','Mulgrave','Waverley Gardens','Sandown Village','Springvale','Noble Park','Noble Park North','Bangholme','Dandenong North','Dandenong','Dandenong South','Dandenong East','Dunearn','Doveton','Eumemmerring','Cockatoo','Nangana','Mount Burnett','Avonsleigh','Emerald','Clematis','Macclesfield','Gembrook','Endeavour Hills','Hallam','Fountain Gate','Narre Warren South','Narre Warren','Berwick','Harkaway','Beaconsfield','Guys Hill','Beaconsfield Upper','Dewhurst','Officer','Officer South','Pakenham','Pakenham Upper','Pakenham South','Rythdale','Maryknoll','Nar Nar Goon North','Nar Nar Goon','Tynong','Tynong North','Cora Lynn','Garfield North','Garfield','Vervale','Bunyip','Iona','Bunyip North','Tonimbuk','Lynbrook','Lyndhurst','Hampton Park','Botanic Ridge','Cranbourne West','Cannons Creek','Devon Meadows','Cranbourne','Junction Village','Cranbourne East','Sandhurst','Cranbourne North','Skye','Cranbourne South','Cardinia','Clyde North','Clyde','Blind Bight','Warneet','Tooradin','Bayles','Koo Wee Rup','Catani','Koo Wee Rup North','Dalmore','Yannathan','Heath Hill'];
+    $("#localization").typeahead({
+        source: nameList
     });
-}
-function localizationChange()
-{
-	var loc = $("#localization").val();
-	$.ajax({
-        type: "POST",
-        url: "//TODO",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(GetJsonData()),
-        dataType: "json",
-        //jsonpCallback: "jsonpcallback",
-        async: false,
-        success: function(data)
-		{
-        	nameList = data;
-		},
-        error: function (message) {
-        }
-    });
-}
-function attributeCount(obj) {
-    var count = 0;
-    for(var i in obj) {
-        if(obj.hasOwnProperty(i)) 
-        {
-            count++;
-        }
-    }
-    return count;
-}
-var allText;
-var allTanks;
-var gauge;
-var gauge11;
-var gauge22;
-var gauge33;
-function submitAPI()
-{
-    document.getElementById("area").onchange = "addRoof()";
-	$("#localization").blur();
-	$("#postCode").blur();
-	$("#waterLitre").blur();
-	$("#area").blur();
-	$("#peopelNum").blur();
-	if ($("#localization").hasClass("invalid"))
-	{
-		alert("Warning: Please input a valid suburb")
-		return false;
-	}
-	if ($("#postCode").hasClass("invalid"))
-	{
-		alert("Warning: Please input a valid postCode")
-		return false;
-	}
-	if ($("#localization").val() != '' && $("#localization").val() != null && $("#localization").val().length < 3)
-	{
-		alert("Warning: Input at least 3 leters for location search");
-		return false;
-	}
-	if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() > 50000)
-	{
-		alert("Warning: The maximum tank capacity is 50000, please check!");
-		return false;
-	}
-    if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() < 1000)
+
+
+
+    function getpostCode()
     {
-        alert("Warning: The minimum tank capacity is 100, please check!");
-        return false;
-    }
-	if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() > 10000)
-	{
-		alert("Warning: The maximum roof area is 10000 square meter");
-		return false;
-	}
-    if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() < 100 )
-    {
-        alert("Warning: The minimum roof area is 100 square meter,or the rainful can not be collect !");
-        return false;
-    }
-	if (!$("#waterLitre").hasClass("haveTank") && $("#waterLitre").val() == '')
-	{
-		alert("Warning: Type in a valid number. If you do not have a tank, click on 'no tank, tank size is zero'");
-		return false;
-	}
-	if (!$("#area").hasClass("haveRoof") && $("#area").val() == '')
-	{
-		alert("Warning: Type in a valid number. If you do not know your roof area, click on 'I don't know my roof area'");
-		return false;
-	}
-	if ($("#waterLitre").hasClass("invalid") || $("#area").hasClass("invalid"))
-	{
-		alert("Warning: Please input only numbers")
-		return false;	
-	}
-	if ($("#peopelNum").hasClass("invalid"))
-	{
-		alert("Warning : Please tell us how many people in your house. Max number is 15");
-		return false;
-	}
-	var tankvalue =$("#waterLitre").val();
-	
-	$("#mainText").html("");
-	$("#mainText").append('<a href="Template-FAQ/index.html" target="_blank"><button type="button" class="btn btn-default btn-info" id="tomail" style="border-radius: 0px;float:right;margin-top: 25px;">FAQ</button></a>');
-	if(tankvalue != '')
-	{
-		$("#mainText").append('<button type="button" class="btn btn-default" id="toCost" onClick="toCost();" style="border-radius: 0px;float:right;margin-top: 25px;">Cost Analysis</button>');
-		$("#mainText").append('<button type="button" class="btn btn-default btn-primary" id="toMain" onClick="toMain();" style="border-radius: 0px;float:right;margin-top: 25px;">Run-off Estimation</button>');
-		$("#mainText").append('<label style="margin-top: 5px;" class="rainfall">These bubbles gives an estimate of your tank level based on the average rainfall in your location and your roof area. The water level shows in each bubbe is the quantity of water that you can collect in your tank</label>');
-		$("#mainText").append('<label style="margin-top: 5px;" class="costchat">This chart gives a comparison of cost when you buy the same amount of run-off water from a water provider. Different metropolitan water providers are shown here.If u feel confuse,you can click on the label to remove the company </label>');
-	}
-	var jsondata = null;
-    $.ajax({
-        type: "POST",
-        url: "http://api.usewaterwisely.tk/api/searchlocation",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(GetJsonData()),
-        dataType: "json",
-        //jsonpCallback: "jsonpcallback",
-        async: false,
-        success: function(data)
-		{
-			if(data.locations == null || attributeCount(data.locations) == 0)
-					alert("Warning: Please input valid suburb name");
-			else
-				jsondata = data.locations;
-		},
-        error: function (message) {
-        	alert("error.");
-        }
-    });
-	if (jsondata == null)
-			return false;
-	var nameList = new Array(attributeCount(jsondata));
-	var numList = new Array(attributeCount(jsondata));
-	var cont = 0;
-	for (var x in jsondata)
-	{
-		nameList[cont] = x;
-		cont++;
-	}
-	cont = 0;
-	var countNum = 0;
-	for (var y in jsondata)
-	{
-		var id = jsondata[y];
-		var htmlContent = null;
-		var tanklat = $("#waterLitre").val();
-		if (tanklat != '')
-		{
-			$.ajax({
-				type: "POST",
-				url: "http://api.usewaterwisely.tk/api/getwaterlevels",
-				contentType: "application/json; charset=utf-8",
-				data: JSON.stringify(getJsonDate2(id, y)),
-				dataType: "json",
-				//jsonpCallback: "jsonpcallback",
-				async: false,
-				success: function(data)
-				{
-					var text = data;
-					allText = data;
-					if( text[0] == null)
-						return false;
-					var rainfall = new Array();
-					var runoff = new Array();
-					var cost = new Array();
-					var cost2 = new Array();
-					var cost3 = new Array();
-					var cost4 = new Array();
-					var tanklat = $("#waterLitre").val();
-					if (tanklat == '' || tanklat == null)
-						tanklat = 0;
-					var tanks = [tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat,tanklat];
-					var roofArea = $("#area").val();
-					if (roofArea == '')
-						roofArea = 200;
-	                if (text[0] != null){
-	                	cost[0] = text[0].volume*2.3932/1000;
-	                    cost2[0] = text[0].volume*2.5993/1000;cost3[0] = text[0].volume*2.6097/1000;cost4[0]=text[0].volume*1.7058/1000;}
-	                if (text[1] != null){
-	                	cost[1] = text[1].volume*2.3932/1000;
-	                    cost2[1] = text[1].volume*2.5993/1000;cost3[1] = text[1].volume*2.6097/1000;cost4[1]=text[1].volume*1.7058/1000;}
-	                if (text[2] != null){
-	                	cost[2] = text[2].volume*2.3932/1000;
-	                    cost2[2] = text[2].volume*2.5993/1000;cost3[2] = text[2].volume*2.6097/1000;cost4[2]=text[2].volume*1.7058/1000;}
-	                if (text[3] != null){
-	                	cost[3] = text[3].volume*2.3932/1000;
-	                    cost2[3] = text[3].volume*2.5993/1000;cost3[3] = text[3].volume*2.6097/1000;cost4[3]=text[3].volume*1.7058/1000;}
-	                if (text[4] != null){
-	                	cost[4] = text[4].volume*2.3932/1000;
-	                    cost2[4] = text[4].volume*2.5993/1000;cost3[4] = text[4].volume*2.6097/1000;cost4[4]=text[4].volume*1.7058/1000;}
-	                if (text[5] != null){
-	                	cost[5] = text[5].volume*2.3932/1000;
-	                    cost2[5] = text[5].volume*2.5993/1000;cost3[5] = text[5].volume*2.6097/1000;cost4[5]=text[5].volume*1.7058/1000;}
-	                if (text[6] != null){
-	                	cost[6] = text[6].volume*2.3932/1000;
-	                    cost2[6] = text[6].volume*2.5993/1000;cost3[6] = text[6].volume*2.6097/1000;cost4[6]=text[6].volume*1.7058/1000;}
-	                if (text[7] != null){
-	                	cost[7] = text[7].volume*2.3932/1000;
-	                    cost2[7] = text[7].volume*2.5993/1000;cost3[7] = text[7].volume*2.6097/1000;cost4[7]=text[7].volume*1.7058/1000;}
-	                if (text[8] != null){
-	                	cost[8] = text[8].volume*2.3932/1000;
-	                    cost2[8] = text[8].volume*2.5993/1000;cost3[8] = text[8].volume*2.6097/1000;cost4[8]=text[8].volume*1.7058/1000;}
-	                if (text[9] != null){
-	                	cost[9] = text[9].volume*2.3932/1000;
-	                    cost2[9] = text[9].volume*2.5993/1000;cost3[9] = text[9].volume*2.6097/1000;cost4[9]=text[9].volume*1.7058/1000;}
-	                if (text[10] != null){
-	                	cost[10] = text[10].volume*2.3932/1000;
-	                    cost2[10] = text[10].volume*2.5993/1000;cost3[10] = text[10].volume*2.6097/1000;cost4[10]=text[10].volume*1.7058/1000;}
-	                if (text[11] != null){
-	                	cost[11] = text[11].volume*2.3932/1000;
-	                    cost2[11] = text[11].volume*2.5993/1000;cost3[11] = text[11].volume*2.6097/1000;cost4[11]=text[11].volume*1.7058/1000;}
-					$("#mainText").append('<div id="main_'+countNum+'" class="rainfall" style="height:450px;"></div>');
-                    $("#mainText").append('<div id="main1_'+countNum+'" class="rainfall2"></div>');
-                    $("#mainText").append('<hr size="30">');
-                    $("#mainText").append('<h4>Your Tank Water levels from the run-off collected from your Roof</h4>');
-					$("#mainText").append('<div id="main2_'+countNum+'" class="rainfall2"></div>');
-					$("#mainText").append('<hr size="30">');
-                    $("#mainText").append('<h4>Your Household Demands for any month in a year</h4>');
-                    $("#mainText").append('<div id="main3_'+countNum+'" class="rainfall2"></div>');
-                    $("#mainText").append('<hr size="30">');
-                    $("#mainText").append('<h4>Percentage of water from your tank that will serve your household requirements</h4>');
-                    $("#mainText").append('<div id="main4_'+countNum+'" class="rainfall2"></div>');
-					$("#mainText").append('<div id="lain_'+countNum+'" class="costchat" style="height:450px;"></div>');
-					mysub1 = $("#localization").val();
-					mytank1 = $("#waterLitre").val();
-					myroof1 = $("#area").val();
-                    nop = $("#peopelNum").val();
-                    document.getElementById('main1_'+countNum).innerHTML = "Your Suburb is " +mysub1+ ". Your tank size is   " +mytank1+ " Litres. Your roof area is " +myroof1+ " m&sup2. Number of people in your household " +nop+".";
-
-
-					var chart2 = echarts.init(document.getElementById('lain_' + countNum));
-					//op0
-					// Initialising the dataset and variables
-					var tankLevels = [text[0].volume, text[1].volume, text[2].volume, text[3].volume, text[4].volume, text[5].volume, text[6].volume, text[7].volume, text[8].volume, text[9].volume, text[10].volume, text[11].volume];// tank levels
-					var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-					rainfall = [text[0].rainfall, text[1].rainfall, text[2].rainfall, text[3].rainfall, text[4].rainfall, text[5].rainfall, text[6].rainfall, text[7].rainfall, text[8].rainfall, text[9].rainfall, text[10].rainfall, text[11].rainfall];
-					var demands = [];
-
-					var tank = tanklat; // maximum size
-					var maxheight = 66;
-					var date = new Date();
-                    demands[1] = nop * 9 * 30;
-                    demands[2] = nop * 240;
-                    demands[3] = 473*3;
-                    demands[4] = nop * 140 * 5;
-                    demands[5] = 651*4;
-                    demands[6] = 670;
-                    demands[0] = demands[1] + demands[2] + demands[3] + demands[4] + demands[5] + demands[6];
-                    console.log(demands);
-					//var textRounder = function(value){ return Math.round(value);
-					//console.log(currentMonth);
-                    var security = [];
-                    for (var i = 0; i < 12; i++)
+        $.ajax({
+            type: "POST",
+            url: "http://api.usewaterwisely.tk/api/searchlocation",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(GetJsonData()),
+            dataType: "json",
+            //jsonpCallback: "jsonpcallback",
+            async: false,
+            success: function(data)
+            {
+                if(data.locations == null || attributeCount(data.locations) == 0)
+                    alert("Warning: Please input valid suburb name");
+                else
+                {
+                    for (var y in data.locations)
                     {
-                        if (tankLevels[i] > demands[0]){
-                            security[i] = 100;
-                        } else
-                            security[i] = Math.round(tankLevels[i]/demands[0] * 100);
+                        var id = data.locations[y];
+                        $("#postCode").val(id);
+                        return false;
                     }
+                }
+            },
+            error: function (message) {
+                alert("error.");
+            }
+        });
+    }
+    function localizationChange()
+    {
+        var loc = $("#localization").val();
+        $.ajax({
+            type: "POST",
+            url: "//TODO",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(GetJsonData()),
+            dataType: "json",
+            //jsonpCallback: "jsonpcallback",
+            async: false,
+            success: function(data)
+            {
+                nameList = data;
+            },
+            error: function (message) {
+            }
+        });
+    }
+    function attributeCount(obj) {
+        var count = 0;
+        for(var i in obj) {
+            if(obj.hasOwnProperty(i))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    var allText;
+    var allTanks;
+    var gauge;
+    var gauge11;
+    var gauge22;
+    var gauge33;
+    function submitAll()
+    {
 
 
-                    var svg =  d3.select("#main2_"+countNum)
-                        .append("svg")
-                        .attr("height", 500)
-                        .attr("width", 1200)
-                        .attr("viewBox","0 0 1200 500")
-                        .attr("preserveAspectRatio","xMidYMid meet");
 
-                    for (i = 0; i < 12; i++){
-                        var xvalue = 100*i - 35,
-                            yvalue = 232;
+        if(!$('#checkTank').is(':checked'))
+        {
+            document.getElementById("waterLitre").value = 0;
+        }
+
+        document.getElementById("waterLitre").onchange = "addTank()";
+        document.getElementById("area").onchange = "addRoof()";
+        $("#localization").blur();
+        $("#postCode").blur();
+        $("#waterLitre").blur();
+        $("#area").blur();
+        $("#peopelNum").blur();
+        if ($("#localization").hasClass("invalid"))
+        {
+            alert("Warning: Please input a valid suburb")
+            return false;
+        }
+        if ($("#postCode").hasClass("invalid"))
+        {
+            alert("Warning: Please input a valid postCode")
+            return false;
+        }
+        if ($("#localization").val() != '' && $("#localization").val() != null && $("#localization").val().length < 3)
+        {
+            alert("Warning: Input at least 3 leters for location search");
+            return false;
+        }
+        if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() > 50000)
+        {
+            alert("Warning: The maximum tank capacity is 50000, please check!");
+            return false;
+        }
+        if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() < 1000 && $('#checkTank').is(':checked'))
+        {
+            alert("Warning: The minimum tank capacity is 1000, please check!");
+            return false;
+        }
+        if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() > 10000)
+        {
+            alert("Warning: The maximum roof area is 10000 square meter");
+            return false;
+        }
+        if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() < 100 )
+        {
+            alert("Warning: The minimum roof area is 100 square meter,or the rainful can not be collect !");
+            return false;
+        }
+        if (!$("#waterLitre").hasClass("haveTank") && $("#waterLitre").val() == '')
+        {
+            alert("Warning: Type in a valid tank size.If you have no tank,do not check the have tank option");
+            return false;
+        }
+        if (!$("#area").hasClass("haveRoof") && $("#area").val() == '')
+        {
+            alert("Warning: Type in a valid number. If you do not know your roof area, click on 'Calculate My Roof'");
+            return false;
+        }
+        if ($("#waterLitre").hasClass("invalid") || $("#area").hasClass("invalid"))
+        {
+            alert("Warning: Please input only numbers")
+            return false;
+        }
+        if ($("#peopelNum").hasClass("invalid"))
+        {
+            alert("Warning : Please tell us how many people in your house. Max number is 15");
+            return false;
+        }
+        var tankvalue =$("#waterLitre").val();
+
+        $("#mainText").html("");
+        $("#mainText").append('<a href="Template-FAQ/index.html" target="_blank"><button type="button" class="btn btn-default btn-info" id="tomail" style="border-radius: 0px;float:right;margin-top: 25px;">FAQ</button></a>');
+        if(tankvalue != '')
+        {
+            }
+        if($('#checkTank').is(":checked")) {
+
+            document.getElementById("showResult").style.display="block";
+            document.getElementById("part1").style.display="block";
+            document.getElementById("part2").style.display="block";
+            document.getElementById("part3").style.display="block";
+            document.getElementById("part4").style.display="none";
+            document.getElementById("changePage").style.display="none";
+
+        } else {
+            document.getElementById("showResult").style.display="block";
+            document.getElementById("part1").style.display="none";
+            document.getElementById("part2").style.display="block";
+            document.getElementById("part3").style.display="none";
+            document.getElementById("part4").style.display="block";
+            document.getElementById("changePage").style.display="none";
+        };
+
+
+        var jsondata = null;
+        $.ajax({
+            type: "POST",
+            url: "http://api.usewaterwisely.tk/api/searchlocation",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(GetJsonData()),
+            dataType: "json",
+            //jsonpCallback: "jsonpcallback",
+            async: false,
+            success: function(data)
+            {
+                if(data.locations == null || attributeCount(data.locations) == 0)
+                    alert("Warning: Please input valid suburb name");
+                else
+                    jsondata = data.locations;
+            },
+            error: function (message) {
+                alert("error.");
+            }
+        });
+        if (jsondata == null)
+            return false;
+        var nameList = new Array(attributeCount(jsondata));
+        var numList = new Array(attributeCount(jsondata));
+        var cont = 0;
+        for (var x in jsondata)
+        {
+            nameList[cont] = x;
+            cont++;
+        }
+        cont = 0;
+        var countNum = 0;
+        for (var y in jsondata)
+        {
+            var id = jsondata[y];
+            var htmlContent = null;
+            var tanklat = $("#waterLitre").val();
+            if (tanklat != '')
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "http://api.usewaterwisely.tk/api/getwaterlevels",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(getJsonDate2(id, y)),
+                    dataType: "json",
+                    //jsonpCallback: "jsonpcallback",
+                    async: false,
+                    success: function(data)
+                    {
+                        var text = data;
+                        allText = data;
+                        if( text[0] == null)
+                            return false;
+                        var rainfall = new Array();
+                        var runoff = new Array();
+                        var cost = new Array();
+                        var cost2 = new Array();
+                        var cost3 = new Array();
+                        var cost4 = new Array();
+                        var tanklat = $("#waterLitre").val();
+                        if (tanklat == '' || tanklat == null)
+                            tanklat = 0;
+                        var tanks = [tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat, tanklat,tanklat];
+                        var roofArea = $("#area").val();
+                        if (roofArea == '')
+                            roofArea = 200;
+                        if (text[0] != null){
+                            cost[0] = text[0].volume*2.3932/1000;
+                            cost2[0] = text[0].volume*2.5993/1000;cost3[0] = text[0].volume*2.6097/1000;cost4[0]=text[0].volume*1.7058/1000;}
+                        if (text[1] != null){
+                            cost[1] = text[1].volume*2.3932/1000;
+                            cost2[1] = text[1].volume*2.5993/1000;cost3[1] = text[1].volume*2.6097/1000;cost4[1]=text[1].volume*1.7058/1000;}
+                        if (text[2] != null){
+                            cost[2] = text[2].volume*2.3932/1000;
+                            cost2[2] = text[2].volume*2.5993/1000;cost3[2] = text[2].volume*2.6097/1000;cost4[2]=text[2].volume*1.7058/1000;}
+                        if (text[3] != null){
+                            cost[3] = text[3].volume*2.3932/1000;
+                            cost2[3] = text[3].volume*2.5993/1000;cost3[3] = text[3].volume*2.6097/1000;cost4[3]=text[3].volume*1.7058/1000;}
+                        if (text[4] != null){
+                            cost[4] = text[4].volume*2.3932/1000;
+                            cost2[4] = text[4].volume*2.5993/1000;cost3[4] = text[4].volume*2.6097/1000;cost4[4]=text[4].volume*1.7058/1000;}
+                        if (text[5] != null){
+                            cost[5] = text[5].volume*2.3932/1000;
+                            cost2[5] = text[5].volume*2.5993/1000;cost3[5] = text[5].volume*2.6097/1000;cost4[5]=text[5].volume*1.7058/1000;}
+                        if (text[6] != null){
+                            cost[6] = text[6].volume*2.3932/1000;
+                            cost2[6] = text[6].volume*2.5993/1000;cost3[6] = text[6].volume*2.6097/1000;cost4[6]=text[6].volume*1.7058/1000;}
+                        if (text[7] != null){
+                            cost[7] = text[7].volume*2.3932/1000;
+                            cost2[7] = text[7].volume*2.5993/1000;cost3[7] = text[7].volume*2.6097/1000;cost4[7]=text[7].volume*1.7058/1000;}
+                        if (text[8] != null){
+                            cost[8] = text[8].volume*2.3932/1000;
+                            cost2[8] = text[8].volume*2.5993/1000;cost3[8] = text[8].volume*2.6097/1000;cost4[8]=text[8].volume*1.7058/1000;}
+                        if (text[9] != null){
+                            cost[9] = text[9].volume*2.3932/1000;
+                            cost2[9] = text[9].volume*2.5993/1000;cost3[9] = text[9].volume*2.6097/1000;cost4[9]=text[9].volume*1.7058/1000;}
+                        if (text[10] != null){
+                            cost[10] = text[10].volume*2.3932/1000;
+                            cost2[10] = text[10].volume*2.5993/1000;cost3[10] = text[10].volume*2.6097/1000;cost4[10]=text[10].volume*1.7058/1000;}
+                        if (text[11] != null){
+                            cost[11] = text[11].volume*2.3932/1000;
+                            cost2[11] = text[11].volume*2.5993/1000;cost3[11] = text[11].volume*2.6097/1000;cost4[11]=text[11].volume*1.7058/1000;}
+
+                        mysub1 = $("#localization").val();
+                        mytank1 = $("#waterLitre").val();
+                        myroof1 = $("#area").val();
+                        nop = $("#peopelNum").val();
+
+                        //op0
+                        // Initialising the dataset and variables
+                        var tankLevels = [text[0].volume, text[1].volume, text[2].volume, text[3].volume, text[4].volume, text[5].volume, text[6].volume, text[7].volume, text[8].volume, text[9].volume, text[10].volume, text[11].volume];// tank levels
+                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                        rainfall = [text[0].rainfall, text[1].rainfall, text[2].rainfall, text[3].rainfall, text[4].rainfall, text[5].rainfall, text[6].rainfall, text[7].rainfall, text[8].rainfall, text[9].rainfall, text[10].rainfall, text[11].rainfall];
+                        var demands = [];
+
+                        var tank = tanklat; // maximum size
+                        var maxheight = 66;
+                        var date = new Date();
+                        demands[1] = nop * 9 * 30;
+                        demands[2] = nop * 240;
+                        demands[3] = 473*3;
+                        demands[4] = nop * 140 * 5;
+                        demands[5] = 651*4;
+                        demands[6] = 670;
+                        demands[0] = demands[1] + demands[2] + demands[3] + demands[4] + demands[5] + demands[6];
+                        console.log(demands);
+                        //var textRounder = function(value){ return Math.round(value);
+                        //console.log(curenrentMonth);
+                        var security = [];
+                        for (var i = 0; i < 12; i++)
+                        {
+                            if (tankLevels[i] > demands[0]){
+                                security[i] = 100;
+                            } else
+                                security[i] = Math.round(tankLevels[i]/demands[0] * 100);
+                        }
+
+                        //window.onload = calculate;
+                        //function calculate(){
+                            document.getElementById("total").innerHTML = demands[0];
+                            document.getElementById("shower").innerHTML = demands[1];
+                            document.getElementById("toilet").innerHTML = demands[4];
+                            document.getElementById("kitchen").innerHTML = demands[3];
+                            document.getElementById("gardening").innerHTML = demands[5];
+                            document.getElementById("washing").innerHTML = demands[2];
+                            document.getElementById("misc").innerHTML = demands[6];
+                       // }
+
+                        var small_tank = Math.round(demands[0]/1000)*1000;
+                        var max_number = Math.max.apply(Math, tankLevels);
+                        var large_tank = Math.round(max_number/1000)*1000;
+
+                        var midpoint = (small_tank + large_tank)/2;
+                        var medium_tank = Math.round(midpoint/1000)*1000;
+
+                        $("#chartID").empty();
+                        var svg =  new d3.select("#chartID")
+                            .append("svg")
+                            .attr("height", 420)
+                            .attr("width", 1200)
+                            .attr("viewBox","0 0 1200 420")
+                            .attr("preserveAspectRatio","xMidYMid meet");
+
+                        for (i = 0; i < 12; i++){
+                            var xvalue = 100*i - 35,
+                                yvalue = 152;
+                            svg.append("svg:image")
+                                .attr("xlink:href","images/tank1.png")
+                                .attr("width", 175)
+                                .attr("height", 70)
+                                .attr("x", xvalue)
+                                .attr("y", yvalue);
+                        }
+
+                        for (i = 0; i < 12; i++) {
+                            var cloudx = 100 * i - 20,
+                                cloudy = 45;
+                            if (rainfall[i] < 31) {
+                                svg.append("svg:image")
+                                    .attr("xlink:href", "images/less_rain.png")
+                                    .attr("width", 150)
+                                    .attr("height", 80)
+                                    .attr("x", cloudx)
+                                    .attr("y", cloudy);
+                            }
+                            else if (rainfall[i] > 30 && rainfall[i] < 61) {
+                                svg.append("svg:image")
+                                    .attr("xlink:href", "images/heavy_rain.png")
+                                    .attr("width", 150)
+                                    .attr("height", 80)
+                                    .attr("x", cloudx)
+                                    .attr("y", cloudy);
+                            }
+                            else {
+                                svg.append("svg:image")
+                                    .attr("xlink:href", "images/dark_cloud.png")
+                                    .attr("width", 150)
+                                    .attr("height", 80)
+                                    .attr("x", cloudx)
+                                    .attr("y", cloudy);
+                            }
+
+                        }
+
+                        for (i = 0; i < 12; i++) {
+                            if (tankLevels[i] > tank) {
+                                var overflowx = 100 * i - 45,
+                                    overflowy = 245;
+                                svg.append("svg:image")
+                                    .attr("xlink:href", "images/overflow.jpg")
+                                    .attr("width", 175)
+                                    .attr("height", 60)
+                                    .attr("x", overflowx)
+                                    .attr("y", overflowy);
+                            }
+                        }
+
+
+                        svg.selectAll("rect")
+                            .data(tankLevels)
+                            .enter().append("rect")
+                            .attr("x",function(d,i){ return 100*i + 20; })
+                            .attr("y",function(d,i){
+                                if (d > tank){
+                                    return 220;
+                                } else{
+                                    return 220; }})
+                            .attr("rx", 5)
+                            .attr("ry", 5)
+                            .attr("width","65")
+                            .transition().delay(function (d,i){ return i*300})
+                            .duration(800)
+                            .attr("height",function(d){
+                                if (d > tank){
+                                    return maxheight;}
+                                else{
+                                    return maxheight * d/tank; }})
+                            .attr("y",function(d){
+                                if (d > tank){
+                                    return 220 - maxheight;
+                                } else{
+                                    return maxheight - maxheight * d/tank + 154; }})
+                            .attr("fill",function(d,i){
+                                var currentMonth = date.getMonth();
+                                if (i < currentMonth){
+                                    return "#87d3ff";
+                                }
+                                else if (i === currentMonth){
+                                    return "#008fff";
+                                }
+                                else
+                                    return "#0068f4";
+                            });
+
+                        svg.selectAll("text.months-label")
+                            .data(months).enter()
+                            .append("text")
+                            .attr("class", "months-label")
+                            .text(function(d){ return d; })
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 28)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "sans-serif")
+                            .attr("font-size", "16px")
+                            .attr("fill", "black");
+
+                        svg.selectAll("text.rain-label")
+                            .data(rainfall).enter()
+                            .append("text")
+                            .attr("class", "rain-label")
+                            .text(function(d){ return d + "mm"; })
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 90)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black");
+
+                        svg.selectAll("text.tank-label")
+                            .data(tankLevels).enter()
+                            .append("text")
+                            .attr("class", "tank-label")
+                            .text(function(d){
+                                var tanklevel = Math.round(d/tank * 100);
+                                if (tanklevel > 100){
+                                    return 100 + "%"
+                                } else {
+                                    return tanklevel + "%";}})
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 150)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black");
+
+                        svg.selectAll("text.overflow-label")
+                            .data(tankLevels).enter()
+                            .append("text")
+                            .attr("class", "overflow-label")
+                            .text(function(d){
+                                var tanklevel = Math.round(d/tank * 100);
+                                if (tanklevel > 100){
+                                    return (tanklevel - 100) + "%";
+                                } else {
+                                    return;}})
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 270)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black");
+
+                        for (i = 0; i <= 12; i++){
+                            var linex = 100*i;
+                            if (i == 4 || i == 5){
+                                svg.append("line")
+                                    .attr("x1", linex)
+                                    .attr("y1", 10)
+                                    .attr("x2", linex)
+                                    .attr("y2", 340)
+                                    .attr("stroke-width", 3)
+                                    .attr("stroke", "black");
+                            }else {
+                                svg.append("line")
+                                    .attr("x1", linex)
+                                    .attr("y1", 10)
+                                    .attr("x2", linex)
+                                    .attr("y2", 340)
+                                    .attr("stroke-width", 1)
+                                    .attr("stroke", "grey");
+                            }
+                        }
+
+                        svg.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 10)
+                            .attr("x2", 1260)
+                            .attr("y2", 10)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "grey");
+
+                        svg.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 35)
+                            .attr("x2", 1260)
+                            .attr("y2", 35)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "grey");
+
+                        svg.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 135)
+                            .attr("x2", 1260)
+                            .attr("y2", 135)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "grey");
+
+                        svg.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 240)
+                            .attr("x2", 1260)
+                            .attr("y2", 240)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "grey");
+
+                        svg.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 340)
+                            .attr("x2", 460)
+                            .attr("y2", 340)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#87d2ff");
+
+
+                        svg.append("line")
+                            .attr("x1", 400)
+                            .attr("y1", 340)
+                            .attr("x2", 500)
+                            .attr("y2", 340)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#008fff");
+
+                        svg.append("line")
+                            .attr("x1", 500)
+                            .attr("y1", 340)
+                            .attr("x2", 1200)
+                            .attr("y2", 340)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#0068f4");
+
+                        svg.append("text")
+                            .attr("x", 200)
+                            .attr("y", 330)
+                            .text("Historic")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#87d2ff");
+
+                        svg.append("text")
+                            .attr("x", 450)
+                            .attr("y", 330)
+                            .text("Current")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#008fff");
+
+                        svg.append("text")
+                            .attr("x", 880)
+                            .attr("y", 330)
+                            .text("Forecast")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#0068f4");
+
+                        svg.append("svg:image")
+                            .attr("xlink:href", "images/heavy_rain.png")
+                            .attr("width", 175)
+                            .attr("height", 70)
+                            .attr("x", 800)
+                            .attr("y", 345);
+
                         svg.append("svg:image")
                             .attr("xlink:href","images/tank1.png")
                             .attr("width", 175)
                             .attr("height", 70)
-                            .attr("x", xvalue)
-                            .attr("y", yvalue);
-                    }
+                            .attr("x", 900)
+                            .attr("y", 345);
 
-                    for (i = 0; i < 12; i++) {
-                        var cloudx = 100 * i - 20,
-                            cloudy = 125;
-                        if (i===0 || i===1 || i===11) {
-                            svg.append("svg:image")
-                                .attr("xlink:href", "images/less_rain.png")
-                                .attr("width", 150)
-                                .attr("height", 80)
-                                .attr("x", cloudx)
-                                .attr("y", cloudy);
-                        }
-                        else if (i===2 || i===3 || i===8 || i===9 || i===10) {
-                            svg.append("svg:image")
-                                .attr("xlink:href", "images/dark_cloud.png")
-                                .attr("width", 150)
-                                .attr("height", 80)
-                                .attr("x", cloudx)
-                                .attr("y", cloudy);
-                        }
-                        else {
-                            svg.append("svg:image")
-                                .attr("xlink:href", "images/heavy_rain.png")
-                                .attr("width", 150)
-                                .attr("height", 80)
-                                .attr("x", cloudx)
-                                .attr("y", cloudy);
-                        }
-
-                    }
-
-                    for (i = 0; i < 12; i++) {
-                        if (tankLevels[i] > tank) {
-                            var overflowx = 100 * i - 45,
-                                overflowy = 325;
-                            svg.append("svg:image")
-                                .attr("xlink:href", "images/overflow.jpg")
-                                .attr("width", 175)
-                                .attr("height", 60)
-                                .attr("x", overflowx)
-                                .attr("y", overflowy);
-                        } else{
-
-                        }
-                    }
-
-
-                    svg.selectAll("rect")
-                        .data(tankLevels)
-                        .enter().append("rect")
-                        .attr("x",function(d,i){ return 100*i + 20; })
-                        .attr("y",function(d,i){
-                            if (d > tank){
-                                return 300;
-                            } else{
-                                return 300; }})
-                        .attr("rx", 5)
-                        .attr("ry", 5)
-                        .attr("width","65")
-                        .transition().delay(function (d,i){ return i*300})
-                        .duration(800)
-                        .attr("height",function(d){
-                            if (d > tank){
-                                return maxheight;}
-                            else{
-                                return maxheight * d/tank; }})
-                        .attr("y",function(d){
-                            if (d > tank){
-                                return 300 - maxheight;
-                            } else{
-                                return maxheight - maxheight * d/tank + 234; }})
-                        .attr("fill",function(d,i){
-                            var currentMonth = date.getMonth();
-                            if (i < currentMonth){
-                                return "#87d3ff";
-                            }
-                            else if (i === currentMonth){
-                                return "#008fff";
-                            }
-                            else
-                                return "#0068f4";
-                        });
-
-                    svg.selectAll("text.months-label")
-                        .data(months).enter()
-                        .append("text")
-                        .attr("class", "months-label")
-                        .text(function(d){ return d; })
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 108)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "sans-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg.selectAll("text.rain-label")
-                        .data(rainfall).enter()
-                        .append("text")
-                        .attr("class", "rain-label")
-                        .text(function(d){ return d + "mm"; })
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 170)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black");
-
-                    svg.selectAll("text.tank-label")
-                        .data(tankLevels).enter()
-                        .append("text")
-                        .attr("class", "tank-label")
-                        .text(function(d){
-                            var tanklevel = Math.round(d/tank * 100);
-                            if (tanklevel > 100){
-                                return 100 + "%"
-                            } else {
-                                return tanklevel + "%";}})
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 230)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black");
-
-                    svg.selectAll("text.overflow-label")
-                        .data(tankLevels).enter()
-                        .append("text")
-                        .attr("class", "overflow-label")
-                        .text(function(d){
-                            var tanklevel = Math.round(d/tank * 100);
-                            if (tanklevel > 100){
-                                return (tanklevel - 100) + "%";
-                            } else {
-                                return;}})
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 350)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black");
-
-                    for (i = 0; i <= 12; i++){
-                        var linex = 100*i;
-                        svg.append("line")
-                            .attr("x1", linex)
-                            .attr("y1", 90)
-                            .attr("x2", linex)
-                            .attr("y2", 420)
-                            .attr("stroke-width", 1)
-                            .attr("stroke", "grey");
-                    }
-
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 90)
-                        .attr("x2", 1260)
-                        .attr("y2", 90)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 115)
-                        .attr("x2", 1260)
-                        .attr("y2", 115)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 215)
-                        .attr("x2", 1260)
-                        .attr("y2", 215)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 320)
-                        .attr("x2", 1260)
-                        .attr("y2", 320)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 420)
-                        .attr("x2", 460)
-                        .attr("y2", 420)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#87d2ff");
-
-
-                    svg.append("line")
-                        .attr("x1", 400)
-                        .attr("y1", 420)
-                        .attr("x2", 500)
-                        .attr("y2", 420)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#008fff");
-
-                    svg.append("line")
-                        .attr("x1", 500)
-                        .attr("y1", 420)
-                        .attr("x2", 1200)
-                        .attr("y2", 420)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#0068f4");
-
-                    svg.append("text")
-                        .attr("x", 200)
-                        .attr("y", 410)
-                        .text("Historic")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#87d2ff");
-
-                    svg.append("text")
-                        .attr("x", 450)
-                        .attr("y", 410)
-                        .text("Current")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#008fff");
-
-                    svg.append("text")
-                        .attr("x", 880)
-                        .attr("y", 410)
-                        .text("Forecast")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#0068f4");
-
-                    svg.append("svg:image")
-                        .attr("xlink:href", "images/rainclud.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", 800)
-                        .attr("y", 425);
-
-                    svg.append("svg:image")
-                        .attr("xlink:href","images/tank1.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", 900)
-                        .attr("y", 425);
-
-                    svg.append("svg:image")
-                        .attr("xlink:href","images/overflow.jpg")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", 1000)
-                        .attr("y", 425);
-
-                    svg.append("text")
-                        .attr("x", 890)
-                        .attr("y", 472)
-                        .text("Rainfall")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg.append("text")
-                        .attr("x", 990)
-                        .attr("y", 460)
-                        .attr("class", "id")
-                        .append("svg:tspan")
-                        .attr("x", 990)
-                        .attr("dy", 5)
-                        .text("Volume")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black")
-                        .append("svg:tspan")
-                        .attr("x", 990)
-                        .attr("dy", 20)
-                        .text("full(%)")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg.append("text")
-                        .attr("x", 1100)
-                        .attr("y", 460)
-                        .attr("class", "id")
-                        .append("svg:tspan")
-                        .attr("x", 1100)
-                        .attr("dy", 5)
-                        .text("Overflow")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black")
-                        .append("svg:tspan")
-                        .attr("x", 1100)
-                        .attr("dy", 20)
-                        .text("volume(%)")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black");
-
-                    var svg1 =  d3.select("#main3_"+countNum)
-                        .append("svg")
-                        .attr("height", 250)
-                        .attr("width", 1200)
-                        .attr("viewBox","0 0 1200 250")
-                        .attr("preserveAspectRatio","xMidYMid meet");
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/demand.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", 10)
-                        .attr("y", 10);
-
-                    var imgx = 0;
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/shower.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", 150)
-                        .attr("y", 10);
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/washing.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", imgx + 300)
-                        .attr("y", 10);
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/kitchen.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", imgx + 450)
-                        .attr("y", 10);
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/toilet.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", imgx + 600)
-                        .attr("y", 10);
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/gardening.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", imgx + 750)
-                        .attr("y", 10);
-
-                    svg1.append("svg:image")
-                        .attr("xlink:href","images/water_misc.png")
-                        .attr("width", 175)
-                        .attr("height", 70)
-                        .attr("x", imgx + 900)
-                        .attr("y", 10);
-
-                    svg1.append("text")
-                        .attr("x", 100)
-                        .attr("y", 120)
-                        .attr("class", "id")
-                        .append("svg1:tspan")
-                        .attr("x", 100)
-                        .attr("dy", 5)
-                        .text("Total Demands")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black")
-                        .append("svg1:tspan")
-                        .attr("x", 100)
-                        .attr("dy", 20)
-                        .text("(Litres)")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 250)
-                        .attr("y", 120)
-                        .text("7-9 min Shower")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 385)
-                        .attr("y", 120)
-                        .attr("class", "id")
-                        .append("svg1:tspan")
-                        .attr("x", 385)
-                        .attr("dy", 5)
-                        .text("AAA rated")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black")
-                        .append("svg1:tspan")
-                        .attr("x", 385)
-                        .attr("dy", 20)
-                        .text("Washing machine")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 545)
-                        .attr("y", 120)
-                        .text("Kitchen")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 700)
-                        .attr("y", 120)
-                        .text("Dual-Flush Toilet")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 850)
-                        .attr("y", 120)
-                        .text("Gardening")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.append("text")
-                        .attr("x", 1000)
-                        .attr("y", 120)
-                        .text("Miscellaneous")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    svg1.selectAll("text.demand-label")
-                        .data(demands).enter()
-                        .append("text")
-                        .attr("class", "demand-label")
-                        .text(function(d){ return d })
-                        .attr("x", function(d,i){ return 150*i + 100; })
-                        .attr("y", 190)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    for (i = 0; i <= 7; i++){
-                        var linex = 150*i + 20;
-                        svg1.append("line")
-                            .attr("x1", linex)
-                            .attr("y1", 5)
-                            .attr("x2", linex)
-                            .attr("y2", 210)
-                            .attr("stroke-width", 1)
-                            .attr("stroke", "grey");
-                    }
-
-                    svg1.append("line")
-                        .attr("x1", 20)
-                        .attr("y1", 5)
-                        .attr("x2", 1070)
-                        .attr("y2", 5)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg1.append("line")
-                        .attr("x1", 20)
-                        .attr("y1", 90)
-                        .attr("x2", 1070)
-                        .attr("y2", 90)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg1.append("line")
-                        .attr("x1", 20)
-                        .attr("y1", 160)
-                        .attr("x2", 1070)
-                        .attr("y2", 160)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg1.append("line")
-                        .attr("x1", 20)
-                        .attr("y1", 210)
-                        .attr("x2", 1070)
-                        .attr("y2", 210)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    var svg2 =  d3.select("#main4_"+countNum)
-                        .append("svg")
-                        .attr("height", 250)
-                        .attr("width", 1200)
-                        .attr("viewBox","0 0 1200 250")
-                        .attr("preserveAspectRatio","xMidYMid meet");
-
-                    for (i = 0; i < 12; i++){
-                        var xvalue = 100*i - 35,
-                            yvalue = 88;
-                        svg2.append("svg:image")
-                            .attr("xlink:href","images/tank1.png")
+                        svg.append("svg:image")
+                            .attr("xlink:href","images/overflow.jpg")
                             .attr("width", 175)
                             .attr("height", 70)
-                            .attr("x", xvalue)
-                            .attr("y", yvalue);
-                    }
+                            .attr("x", 1000)
+                            .attr("y", 345);
 
-                    svg2.selectAll("rect")
-                        .data(security)
-                        .enter().append("rect")
-                        .attr("x",function(d,i){ return 100*i + 20; })
-                        .attr("y", 160)
-                        .attr("rx", 5)
-                        .attr("ry", 5)
-                        .attr("width","65")
-                        .transition().delay(function (d,i){ return i*300})
-                        .duration(800)
-                        .attr("height",function(d){
-                            return maxheight * d/100; })
-                        .attr("y",function(d){
-                            return maxheight - maxheight * d/100 + 90; })
-                        .attr("fill",function(d,i){
-                            var currentMonth = date.getMonth();
-                            if (i < currentMonth){
-                                return "#87d3ff";
+                        svg.append("text")
+                            .attr("x", 890)
+                            .attr("y", 392)
+                            .text("Rainfall")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "16px")
+                            .attr("fill", "black");
+
+                        svg.append("text")
+                            .attr("x", 990)
+                            .attr("y", 380)
+                            .attr("class", "id")
+                            .append("svg:tspan")
+                            .attr("x", 990)
+                            .attr("dy", 5)
+                            .text("Volume")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "16px")
+                            .attr("fill", "black")
+                            .append("svg:tspan")
+                            .attr("x", 990)
+                            .attr("dy", 20)
+                            .text("full(%)")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "16px")
+                            .attr("fill", "black");
+
+                        svg.append("text")
+                            .attr("x", 1100)
+                            .attr("y", 380)
+                            .attr("class", "id")
+                            .append("svg:tspan")
+                            .attr("x", 1100)
+                            .attr("dy", 5)
+                            .text("Overflow")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black")
+                            .append("svg:tspan")
+                            .attr("x", 1100)
+                            .attr("dy", 20)
+                            .text("volume(%)")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black");
+
+                        $("#securityChart").empty();
+                        var svg2 =  d3.select("#securityChart")
+                            .append("svg")
+                            .attr("height", 250)
+                            .attr("width", 1200)
+                            .attr("viewBox","0 0 1200 250")
+                            .attr("preserveAspectRatio","xMidYMid meet");
+
+                        for (i = 0; i < 12; i++){
+                            var xvalue = 100*i - 35,
+                                yvalue = 88;
+                            svg2.append("svg:image")
+                                .attr("xlink:href","images/tank1.png")
+                                .attr("width", 175)
+                                .attr("height", 70)
+                                .attr("x", xvalue)
+                                .attr("y", yvalue);
+                        }
+
+                        svg2.selectAll("rect")
+                            .data(security)
+                            .enter().append("rect")
+                            .attr("x",function(d,i){ return 100*i + 20; })
+                            .attr("y", 160)
+                            .attr("rx", 5)
+                            .attr("ry", 5)
+                            .attr("width","65")
+                            .transition().delay(function (d,i){ return i*300})
+                            .duration(800)
+                            .attr("height",function(d){
+                                return maxheight * d/100; })
+                            .attr("y",function(d){
+                                return maxheight - maxheight * d/100 + 90; })
+                            .attr("fill",function(d,i){
+                                var currentMonth = date.getMonth();
+                                if (i < currentMonth){
+                                    return "#87d3ff";
+                                }
+                                else if (i === currentMonth){
+                                    return "#008fff";
+                                }
+                                else
+                                    return "#0068f4";
+                            });
+
+                        svg2.selectAll("text.dtank-label")
+                            .data(security).enter()
+                            .append("text")
+                            .attr("class", "dtank-label")
+                            .text(function(d) {
+                                return d + "%"
+                            })
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 80)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "12px")
+                            .attr("fill", "black");
+
+
+                        svg2.selectAll("text.dmonths-label")
+                            .data(months).enter()
+                            .append("text")
+                            .attr("class", "dmonths-label")
+                            .text(function(d){ return d; })
+                            .attr("x", function(d,i){ return 100*i + 50; })
+                            .attr("y", 40)
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "sans-serif")
+                            .attr("font-size", "16px")
+                            .attr("fill", "black");
+
+                        for (i = 0; i <= 12; i++){
+                            var linex = 100*i;
+                            if (i == 4 || i == 5){
+                                svg2.append("line")
+                                    .attr("x1", linex)
+                                    .attr("y1", 20)
+                                    .attr("x2", linex)
+                                    .attr("y2", 200)
+                                    .attr("stroke-width", 3)
+                                    .attr("stroke", "black");
+                            }else {
+                                svg2.append("line")
+                                    .attr("x1", linex)
+                                    .attr("y1", 20)
+                                    .attr("x2", linex)
+                                    .attr("y2", 200)
+                                    .attr("stroke-width", 1)
+                                    .attr("stroke", "grey");
                             }
-                            else if (i === currentMonth){
-                                return "#008fff";
-                            }
-                            else
-                                return "#0068f4";
-                        });
+                        }
 
-                    svg2.selectAll("text.dtank-label")
-                        .data(security).enter()
-                        .append("text")
-                        .attr("class", "dtank-label")
-                        .text(function(d) {
-                            return d + "%"
-                        })
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 80)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "12px")
-                        .attr("fill", "black");
-
-
-                    svg2.selectAll("text.dmonths-label")
-                        .data(months).enter()
-                        .append("text")
-                        .attr("class", "dmonths-label")
-                        .text(function(d){ return d; })
-                        .attr("x", function(d,i){ return 100*i + 50; })
-                        .attr("y", 40)
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "sans-serif")
-                        .attr("font-size", "16px")
-                        .attr("fill", "black");
-
-                    for (i = 0; i <= 12; i++){
-                        var linex = 100*i;
                         svg2.append("line")
-                            .attr("x1", linex)
-                            .attr("y1", 20)
-                            .attr("x2", linex)
-                            .attr("y2", 200)
+                            .attr("x1", 0)
+                            .attr("y1", 50)
+                            .attr("x2", 1260)
+                            .attr("y2", 50)
                             .attr("stroke-width", 1)
                             .attr("stroke", "grey");
-                    }
 
-                    svg2.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 50)
-                        .attr("x2", 1260)
-                        .attr("y2", 50)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
+                        svg2.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 20)
+                            .attr("x2", 1260)
+                            .attr("y2", 20)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "grey");
 
-                    svg2.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 20)
-                        .attr("x2", 1260)
-                        .attr("y2", 20)
-                        .attr("stroke-width", 1)
-                        .attr("stroke", "grey");
-
-                    svg2.append("line")
-                        .attr("x1", 0)
-                        .attr("y1", 200)
-                        .attr("x2", 460)
-                        .attr("y2", 200)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#87d2ff");
+                        svg2.append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 200)
+                            .attr("x2", 460)
+                            .attr("y2", 200)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#87d2ff");
 
 
-                    svg2.append("line")
-                        .attr("x1", 400)
-                        .attr("y1", 200)
-                        .attr("x2", 500)
-                        .attr("y2", 200)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#008fff");
+                        svg2.append("line")
+                            .attr("x1", 400)
+                            .attr("y1", 200)
+                            .attr("x2", 500)
+                            .attr("y2", 200)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#008fff");
 
-                    svg2.append("line")
-                        .attr("x1", 500)
-                        .attr("y1", 200)
-                        .attr("x2", 1200)
-                        .attr("y2", 200)
-                        .attr("stroke-width", 5)
-                        .attr("stroke", "#0068f4");
+                        svg2.append("line")
+                            .attr("x1", 500)
+                            .attr("y1", 200)
+                            .attr("x2", 1200)
+                            .attr("y2", 200)
+                            .attr("stroke-width", 5)
+                            .attr("stroke", "#0068f4");
 
-                    svg2.append("text")
-                        .attr("x", 200)
-                        .attr("y", 190)
-                        .text("Historic")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#87d2ff");
+                        svg2.append("text")
+                            .attr("x", 200)
+                            .attr("y", 190)
+                            .text("Historic")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#87d2ff");
 
-                    svg2.append("text")
-                        .attr("x", 450)
-                        .attr("y", 190)
-                        .text("Current")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#008fff");
+                        svg2.append("text")
+                            .attr("x", 450)
+                            .attr("y", 190)
+                            .text("Current")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#008fff");
 
-                    svg2.append("text")
-                        .attr("x", 880)
-                        .attr("y", 190)
-                        .text("Forecast")
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "san-serif")
-                        .attr("font-size", "28px")
-                        .attr("fill", "#0068f4");
+                        svg2.append("text")
+                            .attr("x", 880)
+                            .attr("y", 190)
+                            .text("Forecast")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "28px")
+                            .attr("fill", "#0068f4");
 
-                    // table legend
-					//op1
-					$("#main_"+countNum).append('<svg id="fillgauge'+countNum+'" width="30%" height="150" style="float: left;"></svg>');
-					$("#main_"+countNum).append('<div id="inTge" style="float:left;border:1px solid blue;width:250px;height:150px"></div>');
-					$("#inTge").append('<div id="volumeTag" style="margin-top: 30px;margin-left: 15px;">Tank overflow:</div><br>');
-                    $("#inTge").append('<div id="overflowss" style="margin-left: 15px; color:red"></div>');
-                    $("#inTge").append('<div id="fill" style="margin-left: 15px; color:red"></div>');
-					$("#inTge").append('<div id="deficitTag" style="margin-left: 15px;">Deficit:</div>');
-                    $("#main_"+countNum).append('<br><br><br><br><br><br><br><div id = "word" style="margin-top: 20px; margin-left: 40px; font-size : 15px">Click on these button to switch month</div>');
-					$("#main_"+countNum).append('<br><div id="buttonList" style="margin-top: 0px;margin-left: 40px;"></div>');
-					for (var is = 0; is < 12; is++)
-					{
-					    var mon = "";
-					    if(is == 0)
-						{
-						    mon = "Jan"
-						}
-                        if(is == 1)
-                        {
-                            mon = "Feb"
+                        for (i = 0; i < 12; i++){
+                            xvalue = 100*i - 35,
+                                yvalue = 95;
+                            svg2.append("svg:image")
+                                .attr("xlink:href","images/demand_drop.png")
+                                .attr("width", 175)
+                                .attr("height", 55)
+                                .attr("x", xvalue)
+                                .attr("y", yvalue);
                         }
-                        if(is == 2)
-                        {
-                            mon = "Mar"
-                        }
-                        if(is == 3)
-                        {
-                            mon = "Apr"
-                        }
-                        if(is == 4)
-                        {
-                            mon = "May"
-                        }
-                        if(is == 5)
-                        {
-                            mon = "Jun"
-                        }
-                        if(is == 6)
-                        {
-                            mon = "Jul"
-                        }
-                        if(is == 7)
-                        {
-                            mon = "Aug"
-                        }
-                        if(is == 8)
-                        {
-                            mon = "Sep"
-                        }
-                        if(is == 9)
-                        {
-                            mon = "Oct"
-                        }
-                        if(is == 10)
-                        {
-                            mon = "Nov"
-                        }
-                        if(is == 11)
-                        {
-                            mon = "Dec"
-                        }
-						$("#buttonList").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeMonth('+is+')">'+ mon +'</button>');
-					}
-					var config = liquidFillGaugeDefaultSettings();
-				    config.waveHeight = 0.3;
-				    config.circleThickness = 0.1;
-				    config.circleFillGap = 0.2;
-				    config.textVertPosition = 0.8;
-				    config.waveAnimateTime = 2000;
-				    config.waveCount = 1;
-				    config.displayPercent = false;
-				    config.maxValue = tanklat;
-					gauge = loadLiquidFillGauge("fillgauge" + countNum, 28, config);
-					gauge.update(text[0].volume);
 
-					countNum++;
-					//op2
-					var options2 = {
-						color: ['#1f2d53','#3398DB','#43AC6A','#EA2F10'],
-						title: {
-							text: 'Cost chart\n -' +  nameList[cont],
-							textStyle: {fontSize:12}
-						},
-						tooltip: {},
-						legend: {
-							right: 20,
+                        $("#suggestionChart").empty();
+                        var svg1 =  new d3.select("#suggestionChart")
+                            .append("svg")
+                            .attr("height", 200)
+                            .attr("width", 1200)
+                            .attr("viewBox","0 0 1200 200")
+                            .attr("preserveAspectRatio","xMidYMid meet");
 
-							data:['City West Water', 'Yarra Valley Water', 'South East Water', 'Western Water']
-						},
-	                    grid: { // control the size of charts
-	                        x: 100,
-	                        y:100,
-	                        x2: 100,
-	                        y2: 100,
-	                    },
-						xAxis: {
-							name:'Month',
-							data: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
-						},
-						yAxis: {name:'Dolars'},
-						series: [{
-							name: 'City West Water',
-							type: 'bar',
-							data: cost
-						},
-							{
-								name: 'Yarra Valley Water',
-								type: 'bar',
-								data: cost2
-							},
-							{
-								name: 'South East Water',
-								type: 'bar',
-								data: cost3
-							},
-							{
-								name: 'Western Water',
-								type: 'bar',
-								data: cost4
-							}
-						]
-					};
-					chart2.setOption(options2);
-					countNum++;
-					//op3
-					$.ajax({
-						type: "POST",
-						url: "http://api.usewaterwisely.tk/api/gettanksize",
-						contentType: "application/json; charset=utf-8",
-						data: JSON.stringify(gettanksize(id, y)),
-						dataType: "json",
-						//jsonpCallback: "jsonpcallback",
-						async: false,
-						success: function(data)
-						{
-							var jsonStr = data;
-							allTanks = data;
+                        svg1.append("svg:image")
+                            .attr("xlink:href", "images/small.png")
+                            .attr("width", 175)
+                            .attr("height", 70)
+                            .attr("x", 100)
+                            .attr("y", 110);
 
-							peopelNum = $("#peopelNum").val();
-							if (peopelNum == '')
-								peopelNum = 1;
+                        svg1.append("svg:image")
+                            .attr("xlink:href", "images/medium.png")
+                            .attr("width", 200)
+                            .attr("height", 100)
+                            .attr("x", 300)
+                            .attr("y", 80);
 
-							$("#main_0").append('<div id="bolls" style="margin-top:30px"></div>');
-							$("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
-							$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+ " Litres"+'</span>');
-							$("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
-							$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+ " Litres"+'</span>');
-							$("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
-							$("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+ " Litres"+'</span>');
-                            $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these button to switch month</div>');
-                            $("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
-                            for (var is = 0; is < 12; is++)
+                        svg1.append("svg:image")
+                            .attr("xlink:href", "images/large_tank.png")
+                            .attr("width", 250)
+                            .attr("height", 120)
+                            .attr("x", 550)
+                            .attr("y", 60);
+
+                        svg1.append("line")
+                            .attr("x1", 80)
+                            .attr("y1", 180)
+                            .attr("x2", 800)
+                            .attr("y2", 180)
+                            .attr("stroke-width", 4)
+                            .attr("stroke", "grey");
+
+                        svg1.append("text")
+                            .attr("x", 180)
+                            .attr("y", 144)
+                            .text("Small")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "18px")
+                            .attr("fill", "black");
+
+                        svg1.append("text")
+                            .attr("x", 392)
+                            .attr("y", 146)
+                            .text("Medium")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "20px")
+                            .attr("fill", "black");
+
+                        svg1.append("text")
+                            .attr("x", 665)
+                            .attr("y", 140)
+                            .text("Large")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "22px")
+                            .attr("fill", "black");
+
+                        svg1.append("text")
+                            .attr("x", 665)
+                            .attr("y", 60)
+                            .text(large_tank + " L")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "22px")
+                            .attr("fill", "black");
+
+                        svg1.append("text")
+                            .attr("x", 392)
+                            .attr("y", 80)
+                            .text(medium_tank + " L")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "20px")
+                            .attr("fill", "black");
+
+                        svg1.append("text")
+                            .attr("x", 180)
+                            .attr("y", 110)
+                            .text(small_tank + " L")
+                            .attr("text-anchor", "middle")
+                            .attr("font-family", "san-serif")
+                            .attr("font-size", "18px")
+                            .attr("fill", "black");
+                        // table legend
+                        //op1
+                        $("#main_"+countNum).append('<svg id="fillgauge'+countNum+'" width="30%" height="150" style="float: left;"></svg>');
+                        $("#main_"+countNum).append('<div id="inTge" style="float:left;border:1px solid blue;width:250px;height:150px"></div>');
+                        $("#inTge").append('<div id="volumeTag" style="margin-top: 30px;margin-left: 15px;">Tank overflow:</div><br>');
+                        $("#inTge").append('<div id="overflowss" style="margin-left: 15px; color:red"></div>');
+                        $("#inTge").append('<div id="fill" style="margin-left: 15px; color:red"></div>');
+                        $("#inTge").append('<div id="deficitTag" style="margin-left: 15px;">Deficit:</div>');
+                        $("#main_"+countNum).append('<br><br><br><br><br><br><br><div id = "word" style="margin-top: 20px; margin-left: 40px; font-size : 15px">Click on these button to switch month</div>');
+                        $("#main_"+countNum).append('<br><div id="buttonList" style="margin-top: 0px;margin-left: 40px;"></div>');
+                        for (var is = 0; is < 12; is++)
+                        {
+                            var mon = "";
+                            if(is == 0)
                             {
-                                var mon = "";
-                                if(is == 0)
-                                {
-                                    mon = "Jan"
-                                }
-                                if(is == 1)
-                                {
-                                    mon = "Feb"
-                                }
-                                if(is == 2)
-                                {
-                                    mon = "Mar"
-                                }
-                                if(is == 3)
-                                {
-                                    mon = "Apr"
-                                }
-                                if(is == 4)
-                                {
-                                    mon = "May"
-                                }
-                                if(is == 5)
-                                {
-                                    mon = "Jun"
-                                }
-                                if(is == 6)
-                                {
-                                    mon = "Jul"
-                                }
-                                if(is == 7)
-                                {
-                                    mon = "Aug"
-                                }
-                                if(is == 8)
-                                {
-                                    mon = "Sep"
-                                }
-                                if(is == 9)
-                                {
-                                    mon = "Oct"
-                                }
-                                if(is == 10)
-                                {
-                                    mon = "Nov"
-                                }
-                                if(is == 11)
-                                {
-                                    mon = "Dec"
-                                }
-                                $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                                mon = "Jan"
+                            }
+                            if(is == 1)
+                            {
+                                mon = "Feb"
+                            }
+                            if(is == 2)
+                            {
+                                mon = "Mar"
+                            }
+                            if(is == 3)
+                            {
+                                mon = "Apr"
+                            }
+                            if(is == 4)
+                            {
+                                mon = "May"
+                            }
+                            if(is == 5)
+                            {
+                                mon = "Jun"
+                            }
+                            if(is == 6)
+                            {
+                                mon = "Jul"
+                            }
+                            if(is == 7)
+                            {
+                                mon = "Aug"
+                            }
+                            if(is == 8)
+                            {
+                                mon = "Sep"
+                            }
+                            if(is == 9)
+                            {
+                                mon = "Oct"
+                            }
+                            if(is == 10)
+                            {
+                                mon = "Nov"
+                            }
+                            if(is == 11)
+                            {
+                                mon = "Dec"
+                            }
                             }
 
-							var configs = liquidFillGaugeDefaultSettings();
-						    configs.waveHeight = 0.3;
-						    configs.circleThickness = 0.1;
-						    configs.circleFillGap = 0.2;
-						    configs.textVertPosition = 0.8;
-						    configs.waveAnimateTime = 2000;
-						    configs.waveCount = 1;
-						    configs.displayPercent = false;
-						    configs.maxValue = jsonStr.tank_size;
-							gauge11 = loadLiquidFillGauge("fillgaugeb1", 28, configs);
-							gauge11.update(text[0].volume);
 
-							var configs1 = liquidFillGaugeDefaultSettings();
-							configs1.waveHeight = 0.3;
-							configs1.circleThickness = 0.1;
-							configs1.circleFillGap = 0.2;
-							configs1.textVertPosition = 0.8;
-							configs1.waveAnimateTime = 2000;
-							configs1.waveCount = 1;
-							configs1.displayPercent = false;
-							configs1.maxValue = jsonStr.tank_size + peopelNum*140;
-							gauge22 = loadLiquidFillGauge("fillgaugeb2", 28, configs1);
-							gauge22.update(text[0].volume);
 
-							var configs3 = liquidFillGaugeDefaultSettings();
-							configs3.waveHeight = 0.3;
-							configs3.circleThickness = 0.1;
-							configs3.circleFillGap = 0.2;
-							configs3.textVertPosition = 0.8;
-							configs3.waveAnimateTime = 2000;
-							configs3.waveCount = 1;
-							configs3.displayPercent = false;
-							configs3.maxValue = jsonStr.tank_size + allText[2].volume;
-							gauge33 = loadLiquidFillGauge("fillgaugeb3", 28, configs3);
-							gauge33.update(text[0].volume);
-							changeMonth(0)
-						},
-						error: function (message) {
-						}
-				});
-				},
-				error: function (message) {
-					htmlContent = message;
-				}
-			});
-		}
-		else
-		{
-			$.ajax({
-				type: "POST",
-				url: "http://api.usewaterwisely.tk/api/gettanksize",
-				contentType: "application/json; charset=utf-8",
-				data: JSON.stringify(gettanksize(id, y)),
-				dataType: "json",
-				//jsonpCallback: "jsonpcallback",
-				async: false,
-				success: function(data)
-				{
-					var peopelNum = $("#peopelNum").val();
-					if (peopelNum == '')
-						peopelNum = 1;
-					$("#mainText").append('<div id="main_01" style="height:450px;"></div>');
-					var jsonStr = data;
-					allTanks = data;
-                    $("#main_01").append('<br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">These bubbles show the tank suggestions that based on your roof area and house holder numbers. The water level shows the quantity of water you can collect in your tank for each month</div>');
-					$("#main_01").append('<div id="bolls" style="margin-top:50px"></div>');
+                        countNum++;
+                        //op2
+                        var options2 = {
+                            color: ['#1f2d53','#3398DB','#43AC6A','#EA2F10'],
+                            title: {
+                                text: 'Cost chart\n -' +  nameList[cont],
+                                textStyle: {fontSize:12}
+                            },
+                            tooltip: {},
+                            legend: {
+                                right: 20,
 
-					$("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
-					$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+'</span>');
-					$("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
-					$("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+'</span>');
-					$("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
-					$("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+'</span>');
-                    $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these button to switch month</div>');
-					$("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
-                    for (var is = 0; is < 12; is++)
-                    {
-                        var mon = "";
-                        if(is == 0)
-                        {
-                            mon = "Jan"
-                        }
-                        if(is == 1)
-                        {
-                            mon = "Feb"
-                        }
-                        if(is == 2)
-                        {
-                            mon = "Mar"
-                        }
-                        if(is == 3)
-                        {
-                            mon = "Apr"
-                        }
-                        if(is == 4)
-                        {
-                            mon = "May"
-                        }
-                        if(is == 5)
-                        {
-                            mon = "Jun"
-                        }
-                        if(is == 6)
-                        {
-                            mon = "Jul"
-                        }
-                        if(is == 7)
-                        {
-                            mon = "Aug"
-                        }
-                        if(is == 8)
-                        {
-                            mon = "Sep"
-                        }
-                        if(is == 9)
-                        {
-                            mon = "Oct"
-                        }
-                        if(is == 10)
-                        {
-                            mon = "Nov"
-                        }
-                        if(is == 11)
-                        {
-                            mon = "Dec"
-                        }
-                        $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                                data:['City West Water', 'Yarra Valley Water', 'South East Water', 'Western Water']
+                            },
+                            grid: { // control the size of charts
+                                x: 100,
+                                y:100,
+                                x2: 100,
+                                y2: 100,
+                            },
+                            xAxis: {
+                                name:'Month',
+                                data: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
+                            },
+                            yAxis: {name:'Dolars'},
+                            series: [{
+                                name: 'City West Water',
+                                type: 'bar',
+                                data: cost
+                            },
+                                {
+                                    name: 'Yarra Valley Water',
+                                    type: 'bar',
+                                    data: cost2
+                                },
+                                {
+                                    name: 'South East Water',
+                                    type: 'bar',
+                                    data: cost3
+                                },
+                                {
+                                    name: 'Western Water',
+                                    type: 'bar',
+                                    data: cost4
+                                }
+                            ]
+                        };
+                        countNum++;
+                        //op3
+                        $.ajax({
+                            type: "POST",
+                            url: "http://api.usewaterwisely.tk/api/gettanksize",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(gettanksize(id, y)),
+                            dataType: "json",
+                            //jsonpCallback: "jsonpcallback",
+                            async: false,
+                            success: function(data)
+                            {
+                                var jsonStr = data;
+                                allTanks = data;
+
+                                peopelNum = $("#peopelNum").val();
+                                if (peopelNum == '')
+                                    peopelNum = 1;
+
+                                $("#main_0").append('<div id="bolls" style="margin-top:30px"></div>');
+                                $("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
+                                $("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+ " Litres"+'</span>');
+                                $("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
+                                $("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+ " Litres"+'</span>');
+                                $("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
+                                $("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+ " Litres"+'</span>');
+                                $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these button to switch month</div>');
+                                $("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
+                                for (var is = 0; is < 12; is++)
+                                {
+                                    var mon = "";
+                                    if(is == 0)
+                                    {
+                                        mon = "Jan"
+                                    }
+                                    if(is == 1)
+                                    {
+                                        mon = "Feb"
+                                    }
+                                    if(is == 2)
+                                    {
+                                        mon = "Mar"
+                                    }
+                                    if(is == 3)
+                                    {
+                                        mon = "Apr"
+                                    }
+                                    if(is == 4)
+                                    {
+                                        mon = "May"
+                                    }
+                                    if(is == 5)
+                                    {
+                                        mon = "Jun"
+                                    }
+                                    if(is == 6)
+                                    {
+                                        mon = "Jul"
+                                    }
+                                    if(is == 7)
+                                    {
+                                        mon = "Aug"
+                                    }
+                                    if(is == 8)
+                                    {
+                                        mon = "Sep"
+                                    }
+                                    if(is == 9)
+                                    {
+                                        mon = "Oct"
+                                    }
+                                    if(is == 10)
+                                    {
+                                        mon = "Nov"
+                                    }
+                                    if(is == 11)
+                                    {
+                                        mon = "Dec"
+                                    }
+                                    $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                                }
+
+
+
+                            },
+                            error: function (message) {
+                            }
+                        });
+                    },
+                    error: function (message) {
+                        htmlContent = message;
                     }
-					var configs = liquidFillGaugeDefaultSettings();
-				    configs.waveHeight = 0.3;
-				    configs.circleThickness = 0.1;
-				    configs.circleFillGap = 0.2;
-				    configs.textVertPosition = 0.8;
-				    configs.waveAnimateTime = 2000;
-				    configs.waveCount = 1;
-				    configs.displayPercent = false;
-				    configs.maxValue = jsonStr.tank_size;
-					gauge11 = loadLiquidFillGauge("fillgaugeb1", 28, configs);
-					gauge11.update(jsonStr.tank_size);
-					
-					var configs1 = liquidFillGaugeDefaultSettings();
-					configs1.waveHeight = 0.3;
-					configs1.circleThickness = 0.1;
-					configs1.circleFillGap = 0.2;
-					configs1.textVertPosition = 0.8;
-					configs1.waveAnimateTime = 2000;
-					configs1.waveCount = 1;
-					configs1.displayPercent = false;
-					configs1.maxValue = jsonStr.tank_size + peopelNum*140;
-					gauge22 = loadLiquidFillGauge("fillgaugeb2", 28, configs1);
-					gauge22.update(jsonStr.tank_size);
-					
-					var configs3 = liquidFillGaugeDefaultSettings();
-					configs3.waveHeight = 0.3;
-					configs3.circleThickness = 0.1;
-					configs3.circleFillGap = 0.2;
-					configs3.textVertPosition = 0.8;
-					configs3.waveAnimateTime = 2000;
-					configs3.waveCount = 1;
-					configs3.displayPercent = false;
-					configs3.maxValue = jsonStr.tank_size*2;
-					gauge33 = loadLiquidFillGauge("fillgaugeb3", 28, configs3);
-					gauge33.update(jsonStr.tank_size);
-					
-					$.ajax({
-						type: "POST",
-						url: "http://api.usewaterwisely.tk/api/getwaterlevels",
-						contentType: "application/json; charset=utf-8",
-						data: JSON.stringify(gettanksize2(id, y, jsonStr.tank_size)),
-						dataType: "json",
-						//jsonpCallback: "jsonpcallback",
-						async: false,
-						success: function(data)
-						{
-							var text = data;
-							allText = data;
-							changeTankMonth(0);
-						},
-						error: function (message) {
-						}
-				});
-				},
-				error: function (message) {
-				}
-		});
-		}
+                });
+            }
+            else
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "http://api.usewaterwisely.tk/api/gettanksize",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(gettanksize(id, y)),
+                    dataType: "json",
+                    //jsonpCallback: "jsonpcallback",
+                    async: false,
+                    success: function(data)
+                    {
+                        var peopelNum = $("#peopelNum").val();
+                        if (peopelNum == '')
+                            peopelNum = 1;
+                        $("#mainText").append('<div id="main_01" style="height:450px;"></div>');
+                        var jsonStr = data;
+                        allTanks = data;
+                        $("#main_01").append('<br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">These bubbles show the tank suggestions that based on your roof area and house holder numbers. The water level shows the quantity of water you can collect in your tank for each month</div>');
+                        $("#main_01").append('<div id="bolls" style="margin-top:50px"></div>');
 
-		toMain();
-		cont++
-		return;
-	}
+                        $("#bolls").append('<svg id="fillgaugeb1" width="25%" height="120" style="float: left;"></svg>');
+                        $("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+jsonStr.tank_size+'</span>');
+                        $("#bolls").append('<svg id="fillgaugeb2" width="25%" height="120" style="float: left;"></svg>');
+                        $("#bolls").append('<span style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size + peopelNum*120)+'</span>');
+                        $("#bolls").append('<svg id="fillgaugeb3" width="25%" height="120" style="float: left;"></svg>');
+                        $("#bolls").append('<span id="finaTankSize" style="float: left;margin-left:-30px">tank size:<br>'+(jsonStr.tank_size+5000)+'</span>');
+                        $("#bolls").append('<br><br><br><br><br><br><div id = "word" style="margin-top: 15px; margin-left:40px;font-size : 15px">Click on these button to switch month</div>');
+                        $("#bolls").append('<br><div id="buttonList2" style="margin-top: 0px;margin-left: 40px;"></div>');
+                        for (var is = 0; is < 12; is++)
+                        {
+                            var mon = "";
+                            if(is == 0)
+                            {
+                                mon = "Jan"
+                            }
+                            if(is == 1)
+                            {
+                                mon = "Feb"
+                            }
+                            if(is == 2)
+                            {
+                                mon = "Mar"
+                            }
+                            if(is == 3)
+                            {
+                                mon = "Apr"
+                            }
+                            if(is == 4)
+                            {
+                                mon = "May"
+                            }
+                            if(is == 5)
+                            {
+                                mon = "Jun"
+                            }
+                            if(is == 6)
+                            {
+                                mon = "Jul"
+                            }
+                            if(is == 7)
+                            {
+                                mon = "Aug"
+                            }
+                            if(is == 8)
+                            {
+                                mon = "Sep"
+                            }
+                            if(is == 9)
+                            {
+                                mon = "Oct"
+                            }
+                            if(is == 10)
+                            {
+                                mon = "Nov"
+                            }
+                            if(is == 11)
+                            {
+                                mon = "Dec"
+                            }
+                            $("#buttonList2").append('<button class="btn btn-default btn-primary" type="button" style="margin-left: 10px; font-size: 10px" onclick="changeTankMonth('+is+')">'+ mon +'</button>');
+                        }
 
-}
-function changeMonth(number)
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://api.usewaterwisely.tk/api/getwaterlevels",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(gettanksize2(id, y, jsonStr.tank_size)),
+                            dataType: "json",
+                            //jsonpCallback: "jsonpcallback",
+                            async: false,
+                            success: function(data)
+                            {
+                                var text = data;
+                                allText = data;
+                                changeTankMonth(0);
+                            },
+                            error: function (message) {
+                            }
+                        });
+                    },
+                    error: function (message) {
+                    }
+                });
+            }
+
+            toMain();
+            cont++
+            return;
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+    function gettanksize(id, val)
     {
-        gauge.update(allText[number].volume);
-        $("#volumeTag").html("overflow: " + allText[number].overflow + " Litres");
-
-        $("#deficitTag").html("deficit: " + allText[number].deficit + " Litres");
+        var strr = ""+id;
+        var strrSub = ""+val
+        var roofArea = $("#area").val();
+        if (roofArea == '')
+            roofArea = '200';
+        var peopelNum = $("#peopelNum").val();
+        if (peopelNum == '')
+            peopelNum = '1';
+        var json = {
+            "code":strr,
+            "suburb":strrSub,
+            "roof_area" : roofArea,
+            "household_number": peopelNum
+        };
+        return json;
+    }
+    function gettanksize2(id, val, tanksize)
+    {
+        var strr = ""+id;
+        var strrSub = ""+val
+        var roofArea = $("#area").val();
+        if (roofArea == '')
+            roofArea = '200';
+        var peopelNum = $("#peopelNum").val();
+        if (peopelNum == '')
+            peopelNum = '1';
+        var json = {
+            "code":strr,
+            "suburb":strrSub,
+            "roof_area" : roofArea,
+            "household_number": peopelNum,
+            "tank_capacity": tanksize
+        };
+        return json;
+    }
+    function getJsonDate2(id, val)
+    {
+        var strr = ""+id;
+        var strrSub = ""+val
+        var roofArea = $("#area").val();
+        if (roofArea == '')
+            roofArea = '200';
+        var peopelNum = $("#peopelNum").val();
+        if (peopelNum == '')
+            peopelNum = '1';
         var tank = $("#waterLitre").val();
-
-        if (allText[number].overflow > 0)
-            $("#overflowss").html('Warning ! Your tank is overflow !!!');
+        if (tank == '')
+            tank = null;
+        if (tank != null)
+        {
+            var json = {
+                "code":strr,
+                "suburb":strrSub,
+                "roof_area" : roofArea,
+                "household_number": peopelNum,
+                "tank_capacity": tank
+            };
+            return json;
+        }
         else
-            $("#overflowss").html('');
+        {
+            var json = {
+                "code":strr,
+                "suburb":strrSub,
+                "roof_area" : roofArea,
+                "household_number": peopelNum
+            };
+            return json;
+        }
+
     }
 
-    function changeTankMonth(number)
+    function toMain()
     {
-        gauge11.update(allText[number].volume);
-        gauge22.update(allText[number].volume);
-        var configs = liquidFillGaugeDefaultSettings();
-        configs.waveHeight = 0.3;
-		configs.circleThickness = 0.1;
-		configs.circleFillGap = 0.2;
-		configs.textVertPosition = 0.8;
-		configs.waveAnimateTime = 2000;
-		configs.waveCount = 1;
-		configs.displayPercent = false;
-		var maxsize
-		if (number == 11)
-			maxsize = allText[0].volume + allTanks.tank_size;
-		else
-			maxsize = allText[number + 1].volume + allTanks.tank_size;
-		configs.maxValue = maxsize;
-		var gauge44 = loadLiquidFillGauge("fillgaugeb3", 28, configs);
-		gauge44.update(allText[number].volume);
-		$("#finaTankSize").html('tank size:<br>'+maxsize);
+        $(".rainfall2").show();
+        $(".rainfall").hide();
+        $(".costchat").hide();
+        $("#toMain").addClass("btn-primary");
+        $("#toMain").addClass("active");
+        $("#toCost").removeClass("btn-primary");
+        $("#toCost").removeClass("active");
+    }
+    function toCost()
+    {
+        $(".rainfall2").hide();
+        $(".rainfall").hide();
+        $(".costchat").show();
+        $("#toMain").removeClass("btn-primary");
+        $("#toMain").removeClass("active");
+        $("#toCost").addClass("btn-primary");
+        $("#toCost").addClass("active");
     }
 
-function gettanksize(id, val)
-{
-	var strr = ""+id;
-	var strrSub = ""+val
-	var roofArea = $("#area").val();
-	if (roofArea == '')
-		roofArea = '200';
-	var peopelNum = $("#peopelNum").val();
-	if (peopelNum == '')
-		peopelNum = '1';
-	var json = {
-			"code":strr,
-			"suburb":strrSub,
-			"roof_area" : roofArea,
-			"household_number": peopelNum
-		};
-		return json;
-}
-function gettanksize2(id, val, tanksize)
-{
-	var strr = ""+id;
-	var strrSub = ""+val
-	var roofArea = $("#area").val();
-	if (roofArea == '')
-		roofArea = '200';
-	var peopelNum = $("#peopelNum").val();
-	if (peopelNum == '')
-		peopelNum = '1';
-	var json = {
-			"code":strr,
-			"suburb":strrSub,
-			"roof_area" : roofArea,
-			"household_number": peopelNum,
-			"tank_capacity": tanksize
-		};
-		return json;
-}
-function getJsonDate2(id, val)
-{
-	var strr = ""+id;
-	var strrSub = ""+val
-	var roofArea = $("#area").val();
-	if (roofArea == '')
-		roofArea = '200';
-	var peopelNum = $("#peopelNum").val();
-	if (peopelNum == '')
-		peopelNum = '1';
-	var tank = $("#waterLitre").val();
-	if (tank == '')
-		tank = null;
-	if (tank != null)
-	{
-		var json = {
-				"code":strr,
-				"suburb":strrSub,
-				"roof_area" : roofArea,
-				"household_number": peopelNum,
-				"tank_capacity": tank
-			};
-			return json;
-	}
-	else
-	{
-		var json = {
-				"code":strr,
-				"suburb":strrSub,
-				"roof_area" : roofArea,
-				"household_number": peopelNum
-			};
-			return json;
-	}
-		
-}
 
-	function toMain()
-	{
-		$(".rainfall2").show();
-		$(".rainfall").hide();
-		$(".costchat").hide();
-		$("#toMain").addClass("btn-primary");
-		$("#toMain").addClass("active");
-		$("#toCost").removeClass("btn-primary");
-		$("#toCost").removeClass("active");
-	}
-	function toCost()
-	{
-		$(".rainfall2").hide();
-		$(".rainfall").hide();
-		$(".costchat").show();
-		$("#toMain").removeClass("btn-primary");
-		$("#toMain").removeClass("active");
-		$("#toCost").addClass("btn-primary");
-		$("#toCost").addClass("active");
-	}
-	$("#waterLitre").blur(
-		function(){
-			var varText = $("#waterLitre").val();
-			if(/^[0-9.]*$/.test(varText))
-			{
-				$("#waterLitre").css("background-color", "white");
-				$("#waterLitre").removeClass("invalid");
-			}
-			else
-			{
-				$("#waterLitre").css("background-color", "#FFE1E1");
-				$("#waterLitre").addClass("invalid");
-			}
-		});
+    $("#localization").blur(
+        function(){
+            var varText = $("#localization").val();
+            if(/^[A-Za-z ]+$/.test(varText))
+            {
+                $("#localization").css("background-color", "white");
+                $("#localization").removeClass("invalid");
+            }
+            else
+            {
+                $("#localization").css("background-color", "#FFE1E1");
+                $("#localization").addClass("invalid");
+            }
+        });
+    $("#postCode").blur(
+        function(){
+            var varText = $("#postCode").val();
+            if(/^[0-9.-]*$/.test(varText))
+            {
+                $("#postCode").css("background-color", "white");
+                $("#postCode").removeClass("invalid");
+            }
+            else
+            {
+                $("#postCode").css("background-color", "#FFE1E1");
+                $("#postCode").addClass("invalid");
+            }
+        });
 
-	$("#localization").blur(
-		function(){
-			var varText = $("#localization").val();
-			if(/^[A-Za-z ]+$/.test(varText))
-			{
-				$("#localization").css("background-color", "white");
-				$("#localization").removeClass("invalid");
-			}
-			else
-			{
-				$("#localization").css("background-color", "#FFE1E1");
-				$("#localization").addClass("invalid");
-			}
-		});
-	$("#postCode").blur(
-		function(){
-			var varText = $("#postCode").val();
-			if(/^[0-9.-]*$/.test(varText))
-			{
-				$("#postCode").css("background-color", "white");
-				$("#postCode").removeClass("invalid");
-			}
-			else
-			{
-				$("#postCode").css("background-color", "#FFE1E1");
-				$("#postCode").addClass("invalid");
-			}
-		});
-	$("#peopelNum").blur(
-			function(){
-				var varText = $("#peopelNum").val();
-				if(/^[0-9]+$/.test(varText))
-				{
-					if (varText > 15 || varText < 1)
-					{
-						$("#peopelNum").css("background-color", "#FFE1E1");
-						$("#peopelNum").addClass("invalid");
-					}
-					else
-					{
-						$("#peopelNum").css("background-color", "white");
-						$("#peopelNum").removeClass("invalid");
-					}
-				}
-				else
-				{
-					$("#peopelNum").css("background-color", "#FFE1E1");
-					$("#peopelNum").addClass("invalid");
-				}
-			});
+    $('#waterLitre').blur(
+        function() {
+            var varText = $("#waterLitre").val();
+            if (/^[0-9.-]*$/.test(varText)) {
+                $("#waterLitre").css("background-color", "white");
+            }
+            else {
+                $("#waterLitre").css("background-color", "#FFE1E1");
+
+            }
+        });
+
+    $('#area').blur(
+        function() {
+            var varText = $("#area").val();
+            if (/^[0-9.-]*$/.test(varText)) {
+                $("#area").css("background-color", "white");
+            }
+            else {
+                $("#area").css("background-color", "#FFE1E1");
+
+            }
+        });
+    $("#peopelNum").blur(
+        function(){
+            var varText = $("#peopelNum").val();
+            if(/^[0-9]+$/.test(varText))
+            {
+                if (varText > 15 || varText < 1)
+                {
+                    $("#peopelNum").css("background-color", "#FFE1E1");
+                    $("#peopelNum").addClass("invalid");
+                }
+                else
+                {
+                    $("#peopelNum").css("background-color", "white");
+                    $("#peopelNum").removeClass("invalid");
+                }
+            }
+            else
+            {
+                $("#peopelNum").css("background-color", "#FFE1E1");
+                $("#peopelNum").addClass("invalid");
+            }
+        });
 
 
-	function addTank()
-	{
-	    document.getElementById('tank1').style.display = 'flex';
-		$("#waterLitre").addClass("haveTank")
-		notank();
+    function addTank()
+    {
+        $("#waterLitre").addClass("haveTank")
+        notank();
 
-	}
-	function removeTank()
-	{
-	    document.getElementById('tank1').style.display = 'none';
-		$("#waterLitre").removeClass("haveTank")
-		notank();
-	}
-	function notank(obj)
-	{
-		if(!$("#waterLitre").hasClass("haveTank"))
-		{
-			$("#waterLitre").val("");
-			$("#waterLitre").css("background-color", "white");
-			$("#waterLitre").removeClass("invalid");
-			$("#waterLitre").addClass("haveTank");
-			$("#waterLitre").attr("disabled",true);
-			$(obj).text("Have Tank");
-		}
-		else
-		{
-			$("#waterLitre").val("");
-			$("#waterLitre").css("background-color", "white");
-			$("#waterLitre").removeClass("invalid");
-			$("#waterLitre").removeClass("haveTank");
-			$("#waterLitre").attr("disabled",false);
-			$(obj).text("No Tank");
-		}
-	}
-	
-	function addRoof()
-	{
-		$("#area").addClass("haveRoof")
-		noRoof();
-	}
-	function removeRoof()
-	{
-		$("#area").removeClass("haveRoof")
-		noRoof();
-	}
-	function noRoof(obj)
-	{
-		if(!$("#area").hasClass("haveRoof"))
-		{
-			$("#area").val("");
-			$("#area").css("background-color", "white");
-			$("#area").removeClass("invalid");
-			$("#area").addClass("haveRoof");
-			$("#area").attr("disabled",true);
-			$(obj).text("Know Roof Area");
-		}
-		else
-		{
-			$("#area").val("");
-			$("#area").css("background-color", "white");
-			$("#area").removeClass("invalid");
-			$("#area").removeClass("haveRoof");
-			$("#area").attr("disabled",false);
-			$(obj).text("Dont Know Roof Area");
-		}
-	}
-$("#area").blur(
-		function(){
-			var varText = $("#area").val();
-			if(/^[0-9.]*$/.test(varText))
-			{
-				$("#area").css("background-color", "white");
-				$("#area").removeClass("invalid");
-			}
-			else
-			{
-				$("#area").css("background-color", "#FFE1E1");
-				$("#area").addClass("invalid");
-			}
-		});
+    }
+    function removeTank()
+    {
+        document.getElementById('tank1').style.display = 'none';
+        $("#waterLitre").removeClass("haveTank")
+        notank();
+    }
+    function notank(obj)
+    {
+        if(!$("#waterLitre").hasClass("haveTank"))
+        {
+            $("#waterLitre").val("");
+            $("#waterLitre").css("background-color", "white");
+            $("#waterLitre").removeClass("invalid");
+            $("#waterLitre").addClass("haveTank");
+            $("#waterLitre").attr("disabled",true);
+            $(obj).text("Have Tank");
+        }
+        else
+        {
+            $("#waterLitre").val("");
+            $("#waterLitre").css("background-color", "white");
+            $("#waterLitre").removeClass("invalid");
+            $("#waterLitre").removeClass("haveTank");
+            $("#waterLitre").attr("disabled",false);
+            $(obj).text("No Tank");
+        }
+    }
 
-function GetJsonData() {
-	var localization = $("#localization").val();
-    var json = {
-        "location": localization
-    };
-    return json;
-}
+    function addRoof()
+    {
+        $("#area").addClass("haveRoof")
+        noRoof();
+    }
+    function removeRoof()
+    {
+        $("#area").removeClass("haveRoof")
+        noRoof();
+    }
+    function noRoof(obj)
+    {
+        if(!$("#area").hasClass("haveRoof"))
+        {
+            $("#area").val("");
+            $("#area").css("background-color", "white");
+            $("#area").removeClass("invalid");
+            $("#area").addClass("haveRoof");
+            $("#area").attr("disabled",true);
+            $(obj).text("Know Roof Area");
+        }
+        else
+        {
+            $("#area").val("");
+            $("#area").css("background-color", "white");
+            $("#area").removeClass("invalid");
+            $("#area").removeClass("haveRoof");
+            $("#area").attr("disabled",false);
+            $(obj).text("Dont Know Roof Area");
+        }
+    }
+    $("#area").blur(
+        function(){
+            var varText = $("#area").val();
+            if(/^[0-9.]*$/.test(varText))
+            {
+                $("#area").css("background-color", "white");
+                $("#area").removeClass("invalid");
+            }
+            else
+            {
+                $("#area").css("background-color", "#FFE1E1");
+                $("#area").addClass("invalid");
+            }
+        });
+
+    function GetJsonData() {
+        var localization = $("#localization").val();
+        var json = {
+            "location": localization
+        };
+        return json;
+    }
 
     /**
      * Created by Administrator on 2017/5/7.
@@ -1966,6 +1974,18 @@ function GetJsonData() {
             areaB = 0;
             document.getElementById("areaB").innerHTML = "Your roof area is " + areaB.toFixed(0) + " m&sup2";
         }
+        else
+        {
+            calroof();
+        }
+    }
+
+    function deleteAllShape() {
+        for (var i=0; i < all_overlays.length; i++)
+        {
+            all_overlays[i].overlay.setMap(null);
+        }
+        all_overlays = [];
     }
 
 
@@ -2081,11 +2101,11 @@ function GetJsonData() {
                 });
                 var areaB = google.maps.geometry.spherical.computeArea(newShape.getPath());
                 if(areaB > 10000)
-				{
+                {
                     document.getElementById("areaB").innerHTML = "Please draw a valid roof  area less than 10000 m&sup2";
-				}
-				else
-				{
+                }
+                else
+                {
                     document.getElementById("areaB").innerHTML = "Your roof area is " + areaB.toFixed(0) + " m&sup2";
                 }
                 setSelection(newShape);
@@ -2098,7 +2118,7 @@ function GetJsonData() {
         // map is clicked.
         google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
         google.maps.event.addListener(map, 'click', clearSelection);
-        google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+        google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteAllShape());
 
     }
 
@@ -2106,11 +2126,73 @@ function GetJsonData() {
         google.maps.event.trigger(map, "resize");
         initialize();
     });
-   $('#myModal').on('shown.bs.modal', function(e){
-       google.maps.event.trigger(map, "resize");   });
+    $('#myModal').on('shown.bs.modal', function(e){
+        google.maps.event.trigger(map, "resize");   });
     function saveRoof(){
-            document.getElementById("area").value = areaA;
-            document.getElementById("area").onchange = "addRoof()";
+        document.getElementById("area").value = areaA;
+        document.getElementById("area").onchange = "addRoof()";
     }
+
+    var options = {
+        delay: -1
+    };
+    var trip = new Trip([
+        {
+            sel : $('#localization'),
+            content : 'This is element 1',
+            expose: true
+        },
+        {
+            sel : $('#waterLitre'),
+            content : 'This is element 2',
+            expose: true
+        }
+    ], options);
+
+    //trip.start();
+
+    $(".trip-overlay").click(function() {
+        trip.next();
+    });
+
+
+
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex> slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+
+    $(document).ready(function() {
+        // Cache selectors for faster performance.
+        var $window = $(window),
+            $mainMenuBar = $('#mainMenuBar'),
+            $mainMenuBarAnchor = $('#mainMenuBarAnchor');
+
+        // Run this on scroll events.
+        $window.scroll(function() {
+            var window_top = $window.scrollTop();
+            var div_top = $mainMenuBarAnchor.offset().top;
+            if (window_top > div_top) {
+                // Make the div sticky.
+                $mainMenuBar.addClass('stick');
+                $mainMenuBarAnchor.height($mainMenuBar.height());
+            }
+            else {
+                // Unstick the div.
+                $mainMenuBar.removeClass('stick');
+                $mainMenuBarAnchor.height(0);
+            }
+        });
+    });
 </script>
 </html>
