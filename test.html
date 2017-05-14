@@ -63,7 +63,7 @@
             -webkit-animation-name: fade;
             -webkit-animation-duration: 2s;
             animation-name: fade;
-            animation-duration: 2s;
+            animation-duration: 3s;
         }
 
         @-webkit-keyframes fade {
@@ -255,7 +255,7 @@
                     </div>
                     <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
                         <!-- Button HTML (to Trigger Modal) -->
-                        <a href="#" class="btn btn-lg btn-default" onclick="calroof()" style="height: 40px; background-color: pink;">Calculate My Roof</a>
+                        <a href="#" class="btn btn-md btn-default" onclick="calroof()">Calculate roof area</a>
 
                         <!-- Modal HTML -->
                         <div id="myModal" class="modal fade">
@@ -263,7 +263,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">Roof area calculate</h4>
+                                        <h4 class="modal-title">Locate your house and click on your roof to draw a shape</h4>
                                     </div>
                                     <div class="modal-body" style="width: 500px; height:500px;">
 
@@ -288,7 +288,7 @@
                         <input type="text" id="peopelNum" class="form-control" placeholder= "Number of residents" onchange="">
                     </div>
 
-                    <button type="button" style="margin-right: 20px;margin-left: 20px;" id="submitAPI" class="btn btn-default btn-primary" onClick="submitAll()" style="float:right">Submit</button>
+                    <button type="button" style="margin-right: 20px;margin-left: 20px;" id="submitAPI" class="btn btn-md btn-primary" onClick="submitAll()" style="float:right"> Submit </button>
                 </form>
             </div>
 
@@ -2169,7 +2169,7 @@
         slideIndex++;
         if (slideIndex> slides.length) {slideIndex = 1}
         slides[slideIndex-1].style.display = "block";
-        setTimeout(showSlides, 2000); // Change image every 2 seconds
+        setTimeout(showSlides, 5000); // Change image every 2 seconds
     }
 
     $(document).ready(function() {
