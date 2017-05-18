@@ -10,76 +10,27 @@
     <!-- The link to mention the css style of the website -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/jquery.trip.js/3.3.3/trip.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
 
-        * {box-sizing:border-box}
-        body {font-family: Verdana,sans-serif;}
-        .mySlides {display:none}
-
-
-        /* Slideshow container */
-        .slideshow-container {
-            max-width: 800px;
-            position: relative;
-            margin: auto;
+        #panel
+        .gmap-popup {
+            max-width:200px;
+            max-height:100px;
         }
 
-        /* Caption text */
-        .text {
-            color: #f2f2f2;
-            font-size: 15px;
-            padding: 8px 12px;
-            position: absolute;
-            bottom: 8px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Number text (1/3 etc) */
-        .numbertext {
-            color: #f2f2f2;
-            font-size: 12px;
-            padding: 8px 12px;
-            position: absolute;
-            top: 0;
-        }
-
-        /* The dots/bullets/indicators */
-        .dot {
-            height: 13px;
-            width: 13px;
-            margin: 0 2px;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active {
-            background-color: #717171;
-        }
-
-        /* Fading animation */
-        .fade {
-            -webkit-animation-name: fade;
-            -webkit-animation-duration: 2s;
-            animation-name: fade;
-            animation-duration: 3s;
-        }
-
-        @-webkit-keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
-        }
-
-        @keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
+        .wrapper {
+            clear:both;
         }
 
         /* On smaller screens, decrease text size */
         @media only screen and (max-width: 300px) {
             .text {font-size: 11px}
         }
+
+        .mySlides {display:none}
+        .w3-left, .w3-right, .w3-badge {cursor:pointer}
+        .w3-badge {height:13px;width:13px;padding:0}
 
         .img-responsive{
             width:40px;
@@ -93,12 +44,13 @@
             width: 14%;
             text-align: center;
         }
-        #map,
-        html,
-        body {
-            padding: 0;
-            margin: 0;
+        #map{
             height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         #description {
@@ -110,11 +62,11 @@
         }
 
         #infowindow-content {
-            display: none;
+            display:  block;
         }
 
         #map #infowindow-content {
-            display: inline;
+
         }
 
         .pac-card {
@@ -145,7 +97,7 @@
         #pac-input {
             font-family: Roboto;
             font-weight: 300;
-            margin-top: 5px;
+            margin-top: 10px;
             margin-left: 10px;
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
@@ -162,7 +114,7 @@
         }
 
         #delete-button {
-            margin-top: 5px;
+            margin-top: 10px;
         }
         .pac-container{
             z-index: 1051 !important;
@@ -202,7 +154,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="js/bootstrap3-typeahead.min.js"></script>
     <script async src="//jsfiddle.net/geocodezip/hk82v0zp/2/embed/"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAHSdBgQpz0JTttbx_Y4eyi4ztWCFVy5ZA&libraries=drawing,places"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAHSdBgQpz0JTttbx_Y4eyi4ztWCFVy5ZA&libraries=drawing,places&"></script>
     <script type="text/javascript">
 
         function calroof()
@@ -212,18 +164,6 @@
             });
         }
 
-        $("input[type='radio']").change(function(){
-
-            if($(this).val()=="yes")
-            {
-                $("#tank1").show();
-            }
-            else
-            {
-                $("#tank1").hide();
-            }
-
-        });
     </script>
     <!-- Mention the shotcut icon for images -->
     <style>
@@ -232,30 +172,34 @@
     </style>
 </head>
 <body>
-<div class="panel" style="background-image: url('img/waterflow.jpg')">
-    <div class="panel-heading" style="text-align: center;vertical-align: middle;background-image: url('img/waterlogo.png');background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
-        <h1 style="font-family: bat; font-size: 80px;">UseWaterWisely</h1>
+<div class="panel" style="background-image: url('img/waterflow.jpg'); background-size:100% auto;">
+    <div class="panel-heading" style="text-align: center;vertical-align: middle;background-attachment: fixed;background-position: center;">
+        <h1 style="font-family: bat;font-size: 60px;">UseWaterWisely</h1>
     </div>
 
 <div class="panel-body"></div>
     <div class="container" >
 
         <div id="mainMenuBarAnchor"></div>
-        <div class="wrapper" id="mainMenuBar" style="background-color: skyblue;">
+        <div class="wrapper " id="mainMenuBar" style="background-color: skyblue;">
             <br>
             <div class="inner" style="">
                 <form class="form-inline">
 
                     <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
-                        <input type="text" id="localization" class="form-control" placeholder="Enter suburb name" onchange="">
+                        <input type="text" style="min-width: 150px;"id="localization" class="form-control" placeholder="Enter suburb name" onchange="">
                     </div>
                     <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
-                        <label><input type="checkbox" id="checkTank"> I have a tank </label>
-                        <input type="text" style="display: none;" id="waterLitre" class="form-control" placeholder="Enter tank size" onchange="" >
+                        <label style="font-size:20px;font-family: Arial;"><input type="checkbox" id="checkTank"> I have a tank </label>
+                        <input type="text" style="display: none;min-width: 150px;" id="waterLitre" class="form-control" placeholder="Enter tank size" onchange="" >
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
+                        <label style="font-size:20px;font-family: Arial;"><input type="checkbox" id="checkRoof" style="font-size:30px;font-family: Arial;"> I know my roof area  </label>
+                        <input type="text" style="display: none;min-width: 150px;"id="area" class="form-control" placeholder="Enter roof area" onchange="">
                     </div>
                     <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
                         <!-- Button HTML (to Trigger Modal) -->
-                        <a href="#" class="btn btn-md btn-default" onclick="calroof()">Calculate roof area</a>
+                        <a href="#" id="calculateR"class="btn btn-md btn-default" onclick="calroof()">Calculate roof area</a>
 
                         <!-- Modal HTML -->
                         <div id="myModal" class="modal fade">
@@ -267,43 +211,41 @@
                                     </div>
                                     <div class="modal-body" style="width: 500px; height:500px;">
 
-                                        <div id="map" style="width: 500px;"></div>
-                                        <input id="pac-input" class="controls" type="text" placeholder="Type in your home address">
+                                        <div id="map" style=""></div>
+                                        <input id="pac-input" id="homeAd"class="controls" type="text" style="height: 30px;width: 200px;"placeholder="Type in your home address">
 
                                     </div>
                                     <div class="modal-footer">
                                         <div>
                                             <div id="areaB"></div>
                                         </div>
-                                        <button id="delete-button" class="btn btn-default" onclick="deleteSelectedShape()">Delete Selected Shape</button>
+                                        <button id="delete-button" class="btn btn-default" style="margin-top: -1px;"onclick="deleteSelectedShape()">Delete Selected Shape</button>
                                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveRoof()">Save and Close</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <label><input type="checkbox" id="checkRoof" style="margin-left: 10px"> I know my roof area  </label>
-                        <input type="text" style="display: none;"id="area" class="form-control" placeholder="Enter roof area" onchange="">
-                    </div>
+                         </div>
                     <div class="form-group" style="margin-right: 20px;margin-left: 20px;">
-                        <input type="text" id="peopelNum" class="form-control" placeholder= "Number of residents" onchange="">
+                        <input type="text" id="peopelNum" style="min-width: 160px;"class="form-control" placeholder= "Number of residents" onchange="">
                     </div>
 
-                    <button type="button" style="margin-right: 20px;margin-left: 20px;" id="submitAPI" class="btn btn-md btn-primary" onClick="submitAll()" style="float:right"> Submit </button>
+                    <button type="button" style="margin-right: 20px;margin-left: 20px;" id="submitAPI" class="btn btn-md btn-primary" onClick="submitAll()" style="float:right"> Get Tank Size Suggestion </button>
                 </form>
             </div>
 
             <br>
         </div>
         <div id="showResult" style="width: 1200px; display:none; background-color: white;" >
-            <div id = "part1">
-                <h4>Your Tank Water levels from the run-off collected from your Roof</h4>
+            <div id = "part1" style="border-style: solid; border-color:black; border-width:3px;">
+                <h4>Your tank water levels from the rainwater collected from your roof</h4>
                 <div id = "chartID" style="background-color: white;">
 
                 </div>
             </div>
 
             <hr>
-            <div id="part2">
+            <div id="part2" style="border-style: solid; border-color:black; border-width:3px;">
                 <h4>Your Household Demands for any month in an year</h4>
                 <div id = "DemandChart" style="background-color: white;">
 
@@ -353,7 +295,7 @@
             </div>
 
             <hr>
-            <div id="part3">
+            <div id="part3" style="border-style: solid; border-color:black; border-width:3px;">
                 <h4>Security of water supply for your household requirements</h4>
                 <p>The chart below shows the percentage of water that can serve your demands from the tank.</p>
                 <div id = "securityChart" style="background-color: white;">
@@ -362,9 +304,9 @@
             </div>
 
             <hr>
-            <div id="part4">
+            <div id="part4" style="border-style: solid; border-color:black; border-width:3px;">
                 <h4 align="middle">Tank Size Suggestions</h4>
-                <p>Enter the suggested sizes as the tank size above and get to know about your water resources.</p>
+                <p>Enter the suggested sizes as the tank size above and get to know about your water resources. The suggestions are based on your household demands and roof area.</p>
                 <div id = "suggestionChart" style="background-color: white;">
 
                 </div>
@@ -374,35 +316,23 @@
 
     </div>
 
+        <div class="w3-content w3-display-container" id ="slidePage"style="max-width:100%;border-style:solid;border-color:white; ">
+            <img class="mySlides" src="img/1.png" style="width:100%">
+            <img class="mySlides" src="img/2.png" style="width:100%">
+            <img class="mySlides" src="img/3.png" style="width:100%">
+            <img class="mySlides" src="img/4.png" style="width:100%">
+            <img class="mySlides" src="img/5.png" style="width:100%">
+            <button class="w3-button w3-display-left w3-black" style="vertical-align: center;"onclick="plusDivs(-1)">&#10094;</button>
+            <button class="w3-button w3-display-right w3-black" style="vertical-align: center;"onclick="plusDivs(1)">&#10095;</button>
+            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
 
-    <div id="changePage" style="width: 800px; margin-left: 300px; margin-top: 30px;" >
-        <div class="slideshow-container" >
-            <div class="mySlides fade">
-                <div class="numbertext">1 / 3</div>
-                <img src="img/slide-1.png" style="width:100%">
+                <span class="w3-badge demo w3-border-black w3-transparent w3-hover-white" style="border-color: black;border-style: solid;"onclick="currentDiv(1)"></span>
+                <span class="w3-badge demo w3-border-black w3-transparent w3-hover-white" style="border-color: black;border-style: solid;" onclick="currentDiv(2)"></span>
+                <span class="w3-badge demo w3-border-black w3-transparent w3-hover-white" style="border-color: black;border-style: solid;" onclick="currentDiv(3)"></span>
+                <span class="w3-badge demo w3-border-black w3-transparent w3-hover-white" style="border-color: black;border-style: solid;" onclick="currentDiv(4)"></span>
+                <span class="w3-badge demo w3-border-black w3-transparent w3-hover-white" style="border-color: black;border-style: solid;" onclick="currentDiv(5)"></span>
             </div>
-
-            <div class="mySlides fade">
-                <div class="numbertext">2 / 3</div>
-                <img src="img/slide-2.png" style="width:100%">
-            </div>
-
-            <div class="mySlides fade">
-                <div class="numbertext">3 / 3</div>
-                <img src="img/slide-3.png" style="width:100%">
-            </div>
-
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
-        <br>
-
-        <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-        </div>
-    </div>
 
     <div class="panel-footer">  &copy; Copyright by The Superflys 2017 - Monash University Industry Project - All rights reserved.</div>
 
@@ -418,10 +348,18 @@
 
     $('#checkTank').click(function() {
         $('#waterLitre')[this.checked ? "show" : "hide"]();
+        if ($(this).is(':checked')) {
+            document.getElementById("submitAPI").innerHTML = "Use Water Wisely";
+        }
+        else{
+            document.getElementById("submitAPI").innerHTML = "Get Tank Size Suggestion";
+        }
+
     });
     $('#checkRoof').click(function() {
         $('#area')[this.checked ? "show" : "hide"]();
     });
+
 
     toMain();
     var mysub1;
@@ -516,7 +454,6 @@
         document.getElementById("waterLitre").onchange = "addTank()";
         document.getElementById("area").onchange = "addRoof()";
         $("#localization").blur();
-        $("#postCode").blur();
         $("#waterLitre").blur();
         $("#area").blur();
         $("#peopelNum").blur();
@@ -532,7 +469,7 @@
         }
         if ($("#localization").val() != '' && $("#localization").val() != null && $("#localization").val().length < 3)
         {
-            alert("Warning: Input at least 3 leters for location search");
+            alert("Warning: Input at least 3 letters for location search");
             return false;
         }
         if ($("#waterLitre").val() != '' && $("#waterLitre").val() != null && $("#waterLitre").val() > 50000)
@@ -550,14 +487,14 @@
             alert("Warning: The maximum roof area is 10000 square meter");
             return false;
         }
-        if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() < 100 )
+        if ($("#area").val() != '' && $("#area").val() != null && $("#area").val() < 50 )
         {
-            alert("Warning: The minimum roof area is 100 square meter,or the rainful can not be collect !");
+            alert("Warning: The minimum roof area is 50 square meter");
             return false;
         }
         if (!$("#waterLitre").hasClass("haveTank") && $("#waterLitre").val() == '')
         {
-            alert("Warning: Type in a valid tank size.If you have no tank,do not check the have tank option");
+            alert("Warning: Type in a valid tank size.If you have no tank, uncheck the tank option");
             return false;
         }
         if (!$("#area").hasClass("haveRoof") && $("#area").val() == '')
@@ -572,7 +509,7 @@
         }
         if ($("#peopelNum").hasClass("invalid"))
         {
-            alert("Warning : Please tell us how many people in your house. Max number is 15");
+            alert("Warning : Please tell us the number of people in your house. Max number is 15");
             return false;
         }
         var tankvalue =$("#waterLitre").val();
@@ -589,7 +526,8 @@
             document.getElementById("part2").style.display="block";
             document.getElementById("part3").style.display="block";
             document.getElementById("part4").style.display="none";
-            document.getElementById("changePage").style.display="none";
+            document.getElementById("slidePage").style.display="none";
+
 
         } else {
             document.getElementById("showResult").style.display="block";
@@ -597,7 +535,7 @@
             document.getElementById("part2").style.display="block";
             document.getElementById("part3").style.display="none";
             document.getElementById("part4").style.display="block";
-            document.getElementById("changePage").style.display="none";
+            document.getElementById("slidePage").style.display="none";
         };
 
 
@@ -748,13 +686,16 @@
                             document.getElementById("washing").innerHTML = demands[2];
                             document.getElementById("misc").innerHTML = demands[6];
                        // }
-
-                        var small_tank = Math.round(demands[0]/1000)*1000;
+                        var tanksuggestions = [];
+                        tanksuggestions[0] = Math.round(demands[0]/500)*500;
                         var max_number = Math.max.apply(Math, tankLevels);
-                        var large_tank = Math.round(max_number/1000)*1000;
+                        tanksuggestions[1] = Math.round(max_number/500)*500;
 
-                        var midpoint = (small_tank + large_tank)/2;
-                        var medium_tank = Math.round(midpoint/1000)*1000;
+                        var midpoint = (tanksuggestions[0] + tanksuggestions[1])/2;
+                        tanksuggestions[2] = Math.round(midpoint/500)*500;
+                        tanksuggestions.sort(function(a, b){return a-b;});
+
+
 
                         $("#chartID").empty();
                         var svg =  new d3.select("#chartID")
@@ -1329,7 +1270,7 @@
                         svg1.append("text")
                             .attr("x", 665)
                             .attr("y", 60)
-                            .text(large_tank + " L")
+                            .text(tanksuggestions[2] + " L")
                             .attr("text-anchor", "middle")
                             .attr("font-family", "san-serif")
                             .attr("font-size", "22px")
@@ -1338,7 +1279,7 @@
                         svg1.append("text")
                             .attr("x", 392)
                             .attr("y", 80)
-                            .text(medium_tank + " L")
+                            .text(tanksuggestions[1] + " L")
                             .attr("text-anchor", "middle")
                             .attr("font-family", "san-serif")
                             .attr("font-size", "20px")
@@ -1347,7 +1288,7 @@
                         svg1.append("text")
                             .attr("x", 180)
                             .attr("y", 110)
-                            .text(small_tank + " L")
+                            .text(tanksuggestions[0] + " L")
                             .attr("text-anchor", "middle")
                             .attr("font-family", "san-serif")
                             .attr("font-size", "18px")
@@ -1670,15 +1611,7 @@
             return;
         }
 
-
-
-
-
-
     }
-
-
-
 
     function gettanksize(id, val)
     {
@@ -1790,44 +1723,41 @@
                 $("#localization").addClass("invalid");
             }
         });
-    $("#postCode").blur(
+
+    $("#area").blur(
         function(){
-            var varText = $("#postCode").val();
-            if(/^[0-9.-]*$/.test(varText))
+            var varText = $("#area").val();
+            if(!/^[A-Za-z ]+$/.test(varText))
             {
-                $("#postCode").css("background-color", "white");
-                $("#postCode").removeClass("invalid");
+                $("#area").css("background-color", "white");
+                $("#area").removeClass("invalid");
             }
             else
             {
-                $("#postCode").css("background-color", "#FFE1E1");
-                $("#postCode").addClass("invalid");
-            }
-        });
-
-    $('#waterLitre').blur(
-        function() {
-            var varText = $("#waterLitre").val();
-            if (/^[0-9.-]*$/.test(varText)) {
-                $("#waterLitre").css("background-color", "white");
-            }
-            else {
-                $("#waterLitre").css("background-color", "#FFE1E1");
-
-            }
-        });
-
-    $('#area').blur(
-        function() {
-            var varText = $("#area").val();
-            if (/^[0-9.-]*$/.test(varText)) {
-                $("#area").css("background-color", "white");
-            }
-            else {
                 $("#area").css("background-color", "#FFE1E1");
-
+                $("#area").addClass("invalid");
             }
         });
+
+    $("#waterLitre").blur(
+        function(){
+            var varText = $("#waterLitre").val();
+            if(!/^[A-Za-z ]+$/.test(varText))
+            {
+                $("#waterLitre").css("background-color", "white");
+                $("#waterLitre").removeClass("invalid");
+            }
+            else
+            {
+                $("#waterLitre").css("background-color", "#FFE1E1");
+                $("#waterLitre").addClass("invalid");
+            }
+        });
+
+
+
+
+
     $("#peopelNum").blur(
         function(){
             var varText = $("#peopelNum").val();
@@ -1917,20 +1847,6 @@
             $(obj).text("Dont Know Roof Area");
         }
     }
-    $("#area").blur(
-        function(){
-            var varText = $("#area").val();
-            if(/^[0-9.]*$/.test(varText))
-            {
-                $("#area").css("background-color", "white");
-                $("#area").removeClass("invalid");
-            }
-            else
-            {
-                $("#area").css("background-color", "#FFE1E1");
-                $("#area").addClass("invalid");
-            }
-        });
 
     function GetJsonData() {
         var localization = $("#localization").val();
@@ -1988,19 +1904,51 @@
         all_overlays = [];
     }
 
-
-
-
-
+    var infoWindow = new google.maps.InfoWindow;
 
     function initialize() {
+
+
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(-37.8770097, 145.0420733),
+            zoom: 18,
+            center: new google.maps.LatLng(-37.8770, 145.0443),
             mapTypeId: 'satellite',
             disableDefaultUI: true,
-            zoomControl: true
+            zoomControl: true,
+            mapTypeControl: true,
+            drawingControl: true
         });
+
+
+
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+// Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+        }
 
 // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
@@ -2107,9 +2055,10 @@
                 else
                 {
                     document.getElementById("areaB").innerHTML = "Your roof area is " + areaB.toFixed(0) + " m&sup2";
+                    setSelection(newShape);
+                    areaA = areaB.toFixed(0);
                 }
-                setSelection(newShape);
-                areaA = areaB.toFixed(0);
+
             }
         });
 
@@ -2123,14 +2072,19 @@
     }
 
     google.maps.event.addDomListener(window, 'load', function(){
-        google.maps.event.trigger(map, "resize");
         initialize();
+
+        google.maps.event.trigger(map, "resize");
     });
     $('#myModal').on('shown.bs.modal', function(e){
         google.maps.event.trigger(map, "resize");   });
     function saveRoof(){
         document.getElementById("area").value = areaA;
         document.getElementById("area").onchange = "addRoof()";
+
+        $("#checkRoof").prop("checked", true);
+        $("#area").show();
+
     }
 
     var options = {
@@ -2139,17 +2093,41 @@
     var trip = new Trip([
         {
             sel : $('#localization'),
-            content : 'This is element 1',
+            content : 'Type in your suburb name',
             expose: true
         },
         {
-            sel : $('#waterLitre'),
-            content : 'This is element 2',
+            sel : $('#checkTank'),
+            content : 'If you have a tank, check here and type in your tank size',
             expose: true
         }
+        ,
+        {
+            sel : $('#checkRoof'),
+            content : 'If you know your roof area, just check here and type in your roof area',
+            expose: true
+        }
+        ,
+        {
+            sel : $('#calculateR'),
+            content : 'If you do not know your roof area, click this button to calculate now',
+            expose: true
+        },
+        {
+            sel : $('#peopleNum'),
+            content : 'Type in the number of people in your house',
+            expose: true
+        }
+        ,
+        {
+            sel : $('#submitAPI'),
+            content : 'After all these input, get your tank water usage or tank suggestion',
+            expose: true
+        }
+
     ], options);
 
-    //trip.start();
+    trip.start();
 
     $(".trip-overlay").click(function() {
         trip.next();
@@ -2157,20 +2135,8 @@
 
 
 
-    var slideIndex = 0;
-    showSlides();
 
-    function showSlides() {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex> slides.length) {slideIndex = 1}
-        slides[slideIndex-1].style.display = "block";
-        setTimeout(showSlides, 5000); // Change image every 2 seconds
-    }
+
 
     $(document).ready(function() {
         // Cache selectors for faster performance.
@@ -2194,5 +2160,42 @@
             }
         });
     });
+
+    var slideIndex = 1;
+
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" w3-white", "");
+        }
+        x[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " w3-white";
+
+    }
+    function currentDiv(n) {
+        showDivs(slideIndex = n);
+    }
+
+    setInterval(function () {
+        plusDivs(1);
+    }, 4000);
+
 </script>
 </html>
